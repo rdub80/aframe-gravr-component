@@ -7,7 +7,7 @@
     <meta name="description" content="gravr — A-Frame">
     <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
     <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
-    <script src="js/gravr.js"></script> 
+    <script src="-js/gravr.js"></script> 
   </head>
   <body>
     <a-scene fog="type: linear; color: #AAB; far: 30; near: 0">
@@ -63,7 +63,6 @@
         </a-box>
       </a-entity>      
 
-
       <a-entity id="usrBounds" position="0 1.51 0">
         <a-box id="tr" position="0.5 0.5 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="red"></a-box>
         <a-box id="br" position="0.5 -0.5 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="red"></a-box>
@@ -75,6 +74,83 @@
         <a-box id="tl" position="-0.5 0.5 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="red"></a-box>
       </a-entity>  
 
+      <a-entity id="gravr" position="0 1.51 0">
+        <a-entity bmfont-text="text: user-height = 1.51; align: left; color:blue;" position="0 -0.15 0.001" scale="0.25 0.25 0.25"></a-entity>
+        <a-entity bmfont-text="text: fov = 80; align: left; color:blue;" position="0 -0.2 0.001" scale="0.25 0.25 0.25"></a-entity>
+        <a-entity bmfont-text="text: contrast = 0; align: left; color:blue;" position="0 -0.25 0.001" scale="0.25 0.25 0.25"></a-entity>
+        <a-entity bmfont-text="text: magnify = 0; align: left; color:blue;" position="0 -0.3 0.001" scale="0.25 0.25 0.25"></a-entity>
+
+        <a-entity 
+          id="mainButton"
+          geometry="primitive: cylinder; height:0.0025; radius:0.065;"
+          material="color: white; opacity:1; src: url(ico/gravatarVR_icon.png)"
+          position="0 0 0" 
+          rotation="-90 0 0"
+        >
+
+          <a-cylinder 
+            id="mainButtonLoader"
+            color="#999" 
+            height="0.005" 
+            radius="0.0625" 
+            theta-start="0" 
+            theta-length="300" 
+            side="double"
+          ></a-cylinder>
+
+          <a-entity 
+            id="yes"
+            geometry="primitive: cylinder; height:0.0025; radius:0.03125;"
+            material="color: green; opacity:1;"
+            position="0.1 0 0" 
+          >
+            <a-box
+              height="0.00125" 
+              width="0.0175" 
+              depth="0.01" 
+              color="black"
+              position="-0.0125 -0.001 0"
+              rotation="0 45 0"
+            ></a-box>
+            <a-box
+              height="0.00125" 
+              width="0.035" 
+              depth="0.01" 
+              color="black"
+              position="0.005 -0.001 0"
+              rotation="0 -45 0"
+            ></a-box>
+          </a-entity>
+          <a-entity 
+            id="no"
+            geometry="primitive: cylinder; height:0.0025; radius:0.03125;"
+            material="color: red; opacity:1;"
+            position="-0.1 0 0" 
+          >
+            <a-box
+              height="0.00125" 
+              width="0.035" 
+              depth="0.01" 
+              color="black"
+              position="0 -0.001 0"
+              rotation="0 45 0"
+            ></a-box>
+            <a-box
+              height="0.00125" 
+              width="0.035" 
+              depth="0.01" 
+              color="black"
+              position="0 -0.001 0"
+              rotation="0 -45 0"
+            ></a-box>
+          </a-entity>
+
+        </a-entity>
+
+
+
+
+      </a-entity>
 
       <!-- Background -->
       <a-plane rotation="-90 0 0" width="10" height="10" color="#bbc"></a-plane>
