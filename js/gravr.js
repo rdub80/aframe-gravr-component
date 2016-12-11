@@ -1,0 +1,97 @@
+
+// create cookie function
+var createCookie = function(name, value, days) {
+    var expires;
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    }
+    else {
+        expires = "";
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function getCookie(c_name) {
+    if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) {
+                c_end = document.cookie.length;
+            }
+            return unescape(document.cookie.substring(c_start, c_end));
+        }
+    }
+    return "";
+}
+
+
+
+// get/set cookies for gravr
+	var camHeight = 1.6; // default
+	var camFov = 80; // default
+	var usrBoundTop = 180; // default 
+	var usrBoundRight = 180; // default 
+	var usrBoundBottom = 180; // default 
+	var usrBoundLeft = 180; // default 
+	var clickDelay = 1000; // default (ms)
+
+
+// get cookie values if cookie already exists if not prompt setup
+
+if( getCookie(c_CamHeight) != "" ){
+	getCookie(c_CamHeight);
+	getCookie(c_CamFov);
+	getCookie(c_UsrBoundTop);
+	getCookie(c_UsrBoundRight);
+	getCookie(c_UsrBoundBottom);
+	getCookie(c_UsrBoundLeft);
+	getCookie(c_ClickDelay);
+} else {
+
+	// here we can connect with the service to get updated data on gravr.io API with user email
+
+	camHeight = 1.8;
+	camFov = 90;
+	usrBoundTop = 180;
+	usrBoundRight = 180;
+	usrBoundBottom = 180;
+	usrBoundLeft = 180;
+	clickDelay = 1000;
+
+	createCookie(c_CamHeight, camHeight);
+	createCookie(c_CamFov, camFov);
+	createCookie(c_UsrBoundTop, usrBoundTop);
+	createCookie(c_UsrBoundRight, usrBoundRight);
+	createCookie(c_UsrBoundBottom, usrBoundBottom);
+	createCookie(c_UsrBoundLeft, usrBoundLeft);
+	createCookie(c_ClickDelay, clickDelay);
+
+}
+
+
+// create component
+
+AFRAME.registerComponent('gravr', {
+ schema: { type: 'vec3' },
+ update: function () {
+   var userheight = camHeight;
+   var fov = camFov;
+   var UIBounds = [-0, 0, 0, -0]; //(top, right, left, bottom)
+   var gazeDelay = 1000; //(ms)
+   var object3D = this.el.object3D;
+   var data = this.data;
+   object3D.position.set(data.x, data.y, data.z);
+ }
+});
+
+
+// create profile menu
+
+// add button on center of view
+// make button visible on shake
+
+
