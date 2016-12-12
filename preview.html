@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+     <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Gravr test screen</title>
+    <meta name="description" content="gravr — A-Frame">
+    <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+    <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+    <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
+
+    <script src="js/aframe-shake2show-component.js"></script>
+    <script src="js/aframe-gravr-component.js"></script>
+
+<script>
+
+// for console testing on desktop - shake event
+var triggerShake = document.createEvent("HTMLEvents");
+triggerShake.initEvent("shake", true, true);
+
+function shakeMe(){
+  document.dispatchEvent(triggerShake);
+}
+
+    </script> 
+
+  </head>
+  <body>
+    <a-scene fog="type: linear; color: #AAB; far: 30; near: 0" gravr>
+
+      <a-entity id="usrScale" position="0.85 0 0">     
+        <a-box id="heightBar" position="0.125 0.75 -0.005" opacity="0.75" width="0.0625" height="1.5" depth="0.02" color="red"></a-box>
+        <a-box position="0.125 1.25 -0.005" opacity="0.75" width="0.15" height="2.5" depth="0.01" color="#fff"></a-box>
+        <a-box position="0.0625 0    -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">        
+          <a-entity bmfont-text="text: 0m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.0625 0.25 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.0625 0.5  -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666">       
+          <a-entity bmfont-text="text: 0.5m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.0625 0.75 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.0625 1    -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+          <a-entity bmfont-text="text: 1m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.0625 1.25 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.0625 1.5  -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666">       
+          <a-entity bmfont-text="text: 1.5m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.0625 1.75 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.0625 2    -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+          <a-entity bmfont-text="text: 2m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.0625 2.25 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.0625 2.5  -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">
+          <a-entity bmfont-text="text: 2.5m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+
+
+        <a-box position="0.1875 0      -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+          <a-entity bmfont-text="text: 0ft; align: left;" position="0.05 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.1875 0.3048 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.1875 0.6096 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.1875 0.9144 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+          <a-entity bmfont-text="text: 3ft; align: left;" position="0.05 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.1875 1.2192 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.1875 1.524  -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.1875 1.8288 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+          <a-entity bmfont-text="text: 6ft; align: left;" position="0.05 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.1875 2.1336 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.1875 2.4384    -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+          <a-entity bmfont-text="text: 8ft; align: left;" position="0.05 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+      </a-entity>      
+
+      <a-entity id="usrBounds" position="0 1.51 0">
+        <a-box id="tr" position="0.5 0.5 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="red"></a-box>
+        <a-box id="br" position="0.5 -0.5 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="red"></a-box>
+
+        <a-box id="c" position="0 0 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="blue"></a-box>
+        <a-circle color="blue" opacity="0.25" position="0 0 0"  radius="0.7"></a-circle>
+
+        <a-box id="bl" position="-0.5 -0.5 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="red"></a-box>
+        <a-box id="tl" position="-0.5 0.5 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="red"></a-box>
+      </a-entity>  
+
+      <a-entity id="gravr" position="0 1.51 0" visible="false" shake2show >
+        <a-entity id="userHeight" bmfont-text="text: user-height = 1.51; align: left; color:blue;" position="0 -0.15 0.001" scale="0.25 0.25 0.25"></a-entity>
+        <a-entity id="fov" bmfont-text="text: fov = 80; align: left; color:blue;" position="0 -0.2 0.001" scale="0.25 0.25 0.25"></a-entity>
+        <a-entity id="contrast" bmfont-text="text: contrast = 0; align: left; color:blue;" position="0 -0.25 0.001" scale="0.25 0.25 0.25"></a-entity>
+        <a-entity id="magnify" bmfont-text="text: magnify = 0; align: left; color:blue;" position="0 -0.3 0.001" scale="0.25 0.25 0.25"></a-entity>
+
+        <a-entity 
+          id="mainButton"
+          gravr-profile
+          geometry="primitive: cylinder; height:0.0025; radius:0.065;"
+          material="color: white; opacity:1;"
+          position="0 0 0" 
+          rotation="-90 0 0"
+          >
+          <a-entity 
+            geometry="primitive: plane; width:0.1; height:0.1;"
+            material="transparent:true; src: url(ico/gravatarVR_icon.png)"
+            position="0 -0.01 0" 
+            rotation="90 0 0"
+            >
+          </a-entity>
+
+          <a-cylinder 
+            id="mainButtonLoader"
+            color="#999" 
+            height="0.005" 
+            radius="0.0625" 
+            theta-start="0" 
+            theta-length="0" 
+            side="double"
+            >
+
+          </a-cylinder> 
+
+          <a-entity 
+            id="yes"
+            visible="false"
+            geometry="primitive: cylinder; height:0.0025; radius:0.045;"
+            material="color: green; opacity:1;"
+            position="0.15 0 0" 
+            >
+            <a-box
+              height="0.00125" 
+              width="0.0175" 
+              depth="0.01" 
+              color="black"
+              position="-0.0125 -0.001 0"
+              rotation="0 45 0"
+            ></a-box>
+            <a-box
+              height="0.00125" 
+              width="0.035" 
+              depth="0.01" 
+              color="black"
+              position="0.005 -0.001 0"
+              rotation="0 -45 0"
+            ></a-box>
+          </a-entity>
+          <a-entity 
+            id="no"
+            visible="false"
+            geometry="primitive: cylinder; height:0.0025; radius:0.045;"
+            material="color: red; opacity:1;"
+            position="-0.15 0 0" 
+            >
+            <a-box
+              height="0.00125" 
+              width="0.035" 
+              depth="0.01" 
+              color="black"
+              position="0 -0.001 0"
+              rotation="0 45 0"
+            ></a-box>
+            <a-box
+              height="0.00125" 
+              width="0.035" 
+              depth="0.01" 
+              color="black"
+              position="0 -0.001 0"
+              rotation="0 -45 0"
+            ></a-box>
+          </a-entity>
+
+        </a-entity>
+
+      </a-entity>
+
+      <!-- Background -->
+      <a-plane rotation="-90 0 0" width="10" height="10" color="#bbc"></a-plane>
+      <a-sky color="#AAB"></a-sky>
+
+      <a-entity position="0 0 1">
+        <!-- Camera + cursor. -->
+        <a-entity camera="user-height:1.51" look-controls wasd-controls >
+          <a-entity 
+            position="0 0 -0.75"
+            geometry="primitive: ring; radiusOuter: 0.025; radiusInner: 0.015;"
+            material="color: cyan; shader: flat"
+            cursor="fuse: true; fuseTimeout: 1500">
+
+            <a-animation begin="click" easing="ease-in" attribute="scale"
+                 fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="1000"></a-animation>
+            <a-animation begin="fusing" easing="ease-in" attribute="scale"
+                 fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1000"></a-animation>
+          
+          </a-entity>
+        </a-entity>
+      </a-entity>
+
+    </a-scene>
+  </body>
+</html>
