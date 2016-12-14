@@ -26,13 +26,6 @@
   <button onCLick="shakeMe();">Shake!</button>
 
     <a-scene gravr>
-
-      <a-assets>
-        <img id="sky" src="grid.jpg">
-        <img id="fadewhite" src="fadewhite.png">
-        <img id="fadeblack" src="fadeblack.png">
-      </a-assets>
-
       <a-entity id="usrScale" position="0.85 0 0">     
         <a-box id="heightBar" position="0.125 0.75 -0.005" opacity="0.75" width="0.0625" height="1.5" depth="0.02" color="red"></a-box>
         <a-box position="0.125 1.25 -0.005" opacity="0.75" width="0.15" height="2.5" depth="0.01" color="#fff"></a-box>
@@ -226,10 +219,10 @@
 
       <!-- Background -->
       <a-plane rotation="-90 0 0" width="10" height="10" color="#274259"></a-plane>
-      <a-sky src="#sky" color="#F9FDFC"></a-sky>
+      <a-sky src="grid.jpg" color="#F9FDFC"></a-sky>
 
       <!-- Camera + cursor. -->
-      <a-entity id="gravr-cam" camera="user-height:1.51" position="0 0 1" look-controls wasd-controls >
+      <a-entity id="gravr-cam" camera="user-height:1.51" position="0 0 2" look-controls wasd-controls >
         <a-entity 
           id="pointer"
           position="0 0 -0.75"

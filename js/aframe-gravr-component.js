@@ -61,7 +61,7 @@ getJSON('/js/sample.json').then(function(data) {
 
 function updateGravr(obj, profile) {
 
-  gravrProfile = obj.profileData[0];
+  var gravrProfile = obj.profileData[0];
 
   for (var key in gravrProfile) {
     if (gravrProfile.hasOwnProperty(key)) {
