@@ -9,36 +9,63 @@
 			"default":[{
 				"height":"1.75",
 				"fov":"80",
-				"boundTop":"0.75",
-				"boundRight":"0.75",
-				"boundBottom":"-0.75",
-				"boundLeft":"-0.75",
+				"bounds":[{
+					"top":"0.75",
+					"right":"0.75",
+					"bottom":"-0.75",
+					"left":"-0.75"
+				}],
 				"contrast":"0",
 				"magnification":"0",
+				"blinder":"0",
+				"blinderColor":"light",
 				"fuseDelay":"1000"
 			}],
 			"airplane":[{
 				"height":"1.5",
 				"fov":"90",
-				"boundTop":"0.5",
-				"boundRight":"0.5",
-				"boundBottom":"-0.5",
-				"boundLeft":"-0.5",
+				"bounds":[{
+					"top":"0.5",
+					"right":"0.5",
+					"bottom":"-0.5",
+					"left":"-0.5"
+				}],
 				"contrast":"0",
 				"magnification":"0",
+				"blinder":"0.25",
+				"blinderColor":"dark",
 				"fuseDelay":"1000"
 			}],
 			"bed":[{
 				"height":"1.25",
 				"fov":"80",
-				"boundTop":"0.5",
-				"boundRight":"0.75",
-				"boundBottom":"-0.5",
-				"boundLeft":"-0.75",
+				"bounds":[{
+					"top":"0.5",
+					"right":"0.75",
+					"bottom":"-0.5",
+					"left":"-0.75"
+				}],
 				"contrast":"0.5",
 				"magnification":"0.5",
+				"blinder":"0",
+				"blinderColor":"light",
 				"fuseDelay":"500"
 			}],
+			"special":[{
+				"height":"1.25",
+				"fov":"80",
+				"bounds":[{
+					"top":"0",
+					"right":"0.75",
+					"bottom":"-0.5",
+					"left":"-0.75"
+				}],
+				"contrast":"1",
+				"magnification":"1",
+				"blinder":"0.75",
+				"blinderColor":"light",
+				"fuseDelay":"2000"
+			}]
 		}],
 		"displayName":"sampleuser"
 	}

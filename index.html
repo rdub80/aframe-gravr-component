@@ -1,55 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+     <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Gravr test screen</title>
+    <meta name="description" content="gravr — A-Frame">
+    <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+    <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
+    <script src="https://rawgit.com/rdub80/aframe-shake2show-component/master/dist/aframe-shake2show-component.min.js"></script>
 
-    <title>Signin Template for Bootstrap</title>
+    <script src="js/aframe-gravr-component.js"></script>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+    // for console testing on desktop - shake event
+    var triggerShake = document.createEvent("HTMLEvents");
+    triggerShake.initEvent("shake", true, true);
 
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
+    function shakeMe(){
+      document.dispatchEvent(triggerShake);
+    }
+    </script> 
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
-
   <body>
+  <button onCLick="shakeMe();">Shake!</button>
 
-    <div class="container">
+    <a-scene gravr>
 
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+      <a-assets>
+        <img id="sky" src="grid.jpg">
+        <img id="fadewhite" src="fadewhite.png">
+        <img id="fadeblack" src="fadeblack.png">
+      </a-assets>
 
-    </div> <!-- /container -->
+      <a-entity id="usrScale" position="0.85 0 0">     
+        <a-box id="heightBar" position="0.125 0.75 -0.005" opacity="0.75" width="0.0625" height="1.5" depth="0.02" color="red"></a-box>
+        <a-box position="0.125 1.25 -0.005" opacity="0.75" width="0.15" height="2.5" depth="0.01" color="#fff"></a-box>
+        <a-box position="0.0625 0    -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">        
+          <a-entity bmfont-text="text: 0m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.0625 0.25 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.0625 0.5  -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666">       
+          <a-entity bmfont-text="text: 0.5m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.0625 0.75 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.0625 1    -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+          <a-entity bmfont-text="text: 1m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.0625 1.25 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.0625 1.5  -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666">       
+          <a-entity bmfont-text="text: 1.5m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.0625 1.75 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.0625 2    -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+          <a-entity bmfont-text="text: 2m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.0625 2.25 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.0625 2.5  -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">
+          <a-entity bmfont-text="text: 2.5m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
 
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+        <a-box position="0.1875 0      -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+          <a-entity bmfont-text="text: 0ft; align: left;" position="0.05 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.1875 0.3048 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.1875 0.6096 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.1875 0.9144 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+          <a-entity bmfont-text="text: 3ft; align: left;" position="0.05 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.1875 1.2192 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.1875 1.524  -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.1875 1.8288 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+          <a-entity bmfont-text="text: 6ft; align: left;" position="0.05 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+        <a-box position="0.1875 2.1336 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+        <a-box position="0.1875 2.4384    -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+          <a-entity bmfont-text="text: 8ft; align: left;" position="0.05 0 0" scale="0.25 0.25 0.25"></a-entity>
+        </a-box>
+      </a-entity>      
+
+      <a-entity id="usrBounds" position="0 1.51 0">
+        <a-box id="tr" position="0.5 0.5 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="red"></a-box>
+        <a-box id="br" position="0.5 -0.5 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="red"></a-box>
+
+        <a-box id="c" position="0 0 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="blue"></a-box>
+        <a-circle color="blue" opacity="0.3" position="0 0 0"  radius="0.7"></a-circle>
+
+        <a-box id="bl" position="-0.5 -0.5 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="red"></a-box>
+        <a-box id="tl" position="-0.5 0.5 0" opacity="1" width="0.0125" height="0.0125" depth="0.0125" color="red"></a-box>
+      </a-entity>  
+
+      <a-entity id="gravr" 
+        shake2show 
+        visible="false"
+        geometry="primitive: ring; radiusOuter: 0.17; radiusInner: 0.00001; segments-theta:60;"
+        material="color:#fff;opacity:1; shader: flat; src: url(i/panel-base-default.jpg);">
+
+        <!-- info panel -->
+        <a-entity id="infoPanel"
+          geometry="primitive: plane; width:0.4; height:0.22;"
+          material="color:white"
+          position="0 -0.32 0" 
+          rotation="0 0 0"
+          >
+          <a-entity 
+          geometry="primitive: plane; width:0.05; height:0.05;"
+          material="color:white"
+          position="0 0.1 0" 
+          rotation="0 0 45"
+          ></a-entity>
+          <a-entity id="userHeight" bmfont-text="text: Your height = 1.51; align: left; color:#333;" position="-0.17 0.07 0.001" scale="0.1 0.1 0.1"></a-entity>
+          <a-entity id="fov" bmfont-text="text: Your field of vision = 80; align: left; color:#333;" position="-0.17 0.04 0.001" scale="0.1 0.1 0.1"></a-entity>
+          <a-entity id="contrast" bmfont-text="text: Contrast = 0; align: left; color:#333;" position="-0.17 0.01 0.001" scale="0.1 0.1 0.1"></a-entity>
+          <a-entity id="magnify" bmfont-text="text: Magnification = 0; align: left; color:#333;" position="-0.17 -0.02 0.001" scale="0.1 0.1 0.1"></a-entity>
+          <a-entity id="blinder" bmfont-text="text: Blinder set to = 0; align: left; color:#333;" position="-0.17 -0.05 0.001" scale="0.1 0.1 0.1"></a-entity>
+          <a-entity id="fuseDelay" bmfont-text="text: Delay time for gaze click = 0; align: left; color:#333;" position="-0.17 -0.08 0.001" scale="0.1 0.1 0.1"></a-entity>
+        </a-entity>
+        
+
+        <!-- settings panel -->
+        <a-entity id="settingsPanel"
+          geometry="primitive: plane; width:0.20; height:0.05;"
+          material="color:white; opacity:0; shader: flat; src: url(i/settingspanel.jpg);"
+          position="0.26 -0.12 0" 
+          rotation="0 0 0"
+          >
+          <a-entity id="settingsPanelPin"
+            geometry="primitive: plane; width:0.015; height:0.015;"
+            material="color:white; opacity:0;"
+            position="-0.10 0.0125 0" 
+            rotation="0 0 45"
+            >
+            <a-animation attribute="material.opacity" begin="fadein" to="1"></a-animation>
+            <a-animation attribute="material.opacity" begin="fadeout" to="0"></a-animation>
+          </a-entity>
+          <a-animation attribute="material.opacity" begin="fadein" to="1"></a-animation>
+          <a-animation attribute="material.opacity" begin="fadeout" to="0"></a-animation>
+        </a-entity>
+
+        <a-entity 
+          id="mainButton"
+          gravr-profile
+          geometry="primitive: ring; radiusOuter: 0.08; radiusInner: 0.00001;"
+          material="shader: flat; src: url(i/foreground.png);opacity:1;"
+          position="0 0 0.005" 
+          rotation="0 0 0"
+          >
+          
+          <!-- Ok/Cancel buttons -->
+          <a-entity id="yes"
+            visible="false"
+            geometry="primitive: ring; radiusOuter: 0.023; radiusInner: 0.00001;"
+            material="shader: flat; src: url(i/icn_check.jpg);opacity:0.5;"
+            position="0.13 0 0" 
+            >
+              <a-animation attribute="material.opacity" begin="fadein" to="1"></a-animation>
+              <a-animation attribute="material.opacity" begin="fadeout" to="0"></a-animation>
+          </a-entity>
+          <a-entity id="no"
+            visible="false"
+            geometry="primitive: ring; radiusOuter: 0.023; radiusInner: 0.00001;"
+            material="shader: flat; src: url(i/icn_cancel.jpg);opacity:0.5;"
+            position="-0.13 0 0" 
+            >
+              <a-animation attribute="material.opacity" begin="fadein" to="1"></a-animation>
+              <a-animation attribute="material.opacity" begin="fadeout" to="0"></a-animation>
+          </a-entity>
+
+          <a-entity id="voicecontrol"
+            geometry="primitive: ring; radiusOuter: 0.028; radiusInner: 0.00001;"
+            material="shader: flat; src: url(i/icn_voicecontrol.jpg);opacity:1;"
+            position="-0.087 -0.085 0.0001" 
+            rotation="0 0 0"
+            >
+          </a-entity>
+          <a-entity id="info"
+            geometry="primitive: ring; radiusOuter: 0.028; radiusInner: 0.00001;"
+            material="shader: flat; src: url(i/icn_info_on.jpg); opacity:1;"
+            position="0.0 -0.125 0.0001" 
+            rotation="0 0 0"
+            >
+          </a-entity>
+          <a-entity id="settings"
+            geometry="primitive: ring; radiusOuter: 0.028; radiusInner: 0.00001;"
+            material="shader: flat; src: url(i/icn_settings.jpg); opacity:1;"
+            position="0.088 -0.086 0.0001" 
+            rotation="0 0 0"
+            >
+          </a-entity>
+
+          <!-- Profile buttons -->
+          <a-entity id="default"
+            geometry="primitive: ring; radiusOuter: 0.03; radiusInner: 0.00001;"
+            material="color: #444; opacity: 0"
+            position="-0.09 0.075 0" 
+            >
+          </a-entity>
+          <a-entity id="airplane"
+            geometry="primitive: ring; radiusOuter: 0.03; radiusInner: 0.00001;"
+            material="color: #555; opacity: 0"
+            position="-0.0315 0.1105 0" 
+            >
+          </a-entity>
+          <a-entity id="bed"
+            geometry="primitive: ring; radiusOuter: 0.03; radiusInner: 0.00001;"
+            material="color: #666; opacity: 0"
+            position="0.0315 0.1105 0" 
+            >
+          </a-entity>
+          <a-entity id="special"
+            geometry="primitive: ring; radiusOuter: 0.03; radiusInner: 0.00001;"
+            material="color: #777; opacity: 0"
+            position="0.09 0.075 0" 
+            >
+          </a-entity>
+
+          <a-animation attribute="material.color" from="white" to="#52748e" dur="500" direction="alternate" fill="both" repeat="1" easing="ease-in-out" begin="gravrover"></a-animation>
+
+        </a-entity>
+
+      </a-entity>
+
+
+
+      <!-- Background -->
+      <a-plane rotation="-90 0 0" width="10" height="10" color="#274259"></a-plane>
+      <a-sky src="#sky" color="#F9FDFC"></a-sky>
+
+      <!-- Camera + cursor. -->
+      <a-entity id="gravr-cam" camera="user-height:1.51" position="0 0 1" look-controls wasd-controls >
+        <a-entity 
+          id="pointer"
+          position="0 0 -0.75"
+          geometry="primitive: ring; radiusOuter: 0.025; radiusInner: 0.015;"
+          material="shader: flat; src: url(i/cursor.jpg);"
+          cursor="fuse: true; fuseTimeout: 1500">
+
+          <a-animation begin="fusing" easing="linear" attribute="scale"
+               fill="both" direction="alternate" from="0.1 0.1 0.1" to="1 1 1" dur="500"></a-animation>
+        
+        </a-entity>
+        
+        <a-entity  
+          id="blinder"
+          rotation="90 0 0" 
+          position="0 0 -0.25">
+          <a-curvedimage id="light" visible="true" src="i/fadewhite.png" height="0.5" radius="1" theta-length="360"></a-curvedimage>        
+          <a-curvedimage id="dark" visible="false" src="i/fadeblack.png" height="0.5" radius="1" theta-length="360"></a-curvedimage>
+        </a-entity>
+
+      </a-entity>
+
+    </a-scene>
   </body>
 </html>
