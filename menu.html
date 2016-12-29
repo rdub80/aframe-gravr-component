@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+     <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Gravr Menu</title>
+    <meta name="description" content="gravr — A-Frame">
+    <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
+    <script src="https://rawgit.com/rdub80/aframe-shake2show-component/master/dist/aframe-shake2show-component.min.js"></script>
+    <script src="js/gravr-menu.js?v=9"></script>
+    <script>
+    // for console testing on desktop - shake event
+    var triggerShake = document.createEvent("HTMLEvents");
+    triggerShake.initEvent("shake", true, true);
+
+    function shakeMe(){
+      document.dispatchEvent(triggerShake);
+    }
+    </script> 
+
+  </head>
+  <body>
+  <button onCLick="shakeMe();">Shake!</button>
+  <a-scene gravr>
+
+    <!-- keep gravr menu as first entity -->
+    <a-assets>
+      <!-- Basics -->
+      <a-mixin id="ring" geometry="primitive:ring; radius-inner:0.00001; radius-outer:0.5; theta-start:0; theta-length:360; segments-theta:60;" material="color:#fff;" position="0 0 0"></a-mixin>
+      <!---->
+      <a-mixin id="panelLoader" geometry="primitive:ring; radius-inner:0.20; radius-outer:0.22; theta-start:0; segments-theta:60; theta-length:360" material="color:#fff;" position="0 0 0.001"></a-mixin>
+      <!-- end Basics -->
+      <!-- Button Mixins -->
+      <a-mixin id="profileTab" geometry="primitive:ring; radius-inner:0.23; radius-outer:0.415; theta-length:33.75;" material="color:#EDFFFB; opacity:0;" position="0 0 0.001"></a-mixin>
+      <!---->
+      <a-mixin id="panelMain" geometry="primitive:ring; radius-inner:0.23; radius-outer:0.5; theta-length:45;" position="0 0 0"></a-mixin>
+      <!---->
+      <a-mixin id="panelButton" geometry="primitive:ring; radius-inner:0.23; radius-outer:0.49; theta-length:45;" material="color:#2E96A0; opacity:1;" position="0 0 0"></a-mixin>
+      <!---->
+      <a-mixin id="settingsButton" geometry="primitive:ring; radius-inner:0.00001; radius-outer:0.049; theta-length:360" material="color:#2E96A0; opacity:0;" position="0 0 0"></a-mixin>
+      <!-- end Button Mixins -->
+      <!-- Icon Sizes -->
+      <a-mixin id="iconSmall" geometry="primitive:plane; height:0.12;width:0.12" material="transparent:true"></a-mixin>
+      <a-mixin id="iconLarge" geometry="primitive:plane; height:0.16;width:0.16" material="transparent:true"></a-mixin>
+      <!-- end Icon Sizes -->
+      <!-- PNG Resources -->
+      <a-mixin id="default" material="src:url(i/profile1_on.png)"></a-mixin>
+      <a-mixin id="airplane" material="src:url(i/profile2.png)"></a-mixin>
+      <a-mixin id="bed" material="src:url(i/profile3.png)"></a-mixin>
+      <a-mixin id="special" material="src:url(i/profile4.png)"></a-mixin>
+      <!---->
+      <a-mixin id="cancel" material="src:url(i/icn_cancel.png)"></a-mixin>
+      <a-mixin id="apply" material="src:url(i/icn_apply.png)"></a-mixin>
+      <!---->
+      <a-mixin id="settings" material="src:url(i/icn_settings.png)"></a-mixin>
+      <a-mixin id="info" material="src:url(i/icn_info.png)"></a-mixin>
+      <a-mixin id="voice" material="src:url(i/icn_voice.png)"></a-mixin>
+      <!-- end PNG Resources -->
+    </a-assets>
+
+
+    <a-entity id="usrScale" position="2.2 0 0">
+      <a-box id="heightBar" position="0.125 0.75 -0.005" opacity="0.75" width="0.0625" height="1.5" depth="0.02" color="#DC2531"></a-box>
+      <a-box position="0.125 1.25 -0.005" opacity="0.75" width="0.15" height="2.5" depth="0.01" color="#fff"></a-box>
+      <a-box position="0.0625 0    -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">        
+        <a-entity bmfont-text="text: 0m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+      </a-box>
+      <a-box position="0.0625 0.25 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+      <a-box position="0.0625 0.5  -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666">       
+        <a-entity bmfont-text="text: 0.5m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+      </a-box>
+      <a-box position="0.0625 0.75 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+      <a-box position="0.0625 1    -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+        <a-entity bmfont-text="text: 1m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+      </a-box>
+      <a-box position="0.0625 1.25 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+      <a-box position="0.0625 1.5  -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666">       
+        <a-entity bmfont-text="text: 1.5m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+      </a-box>
+      <a-box position="0.0625 1.75 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+      <a-box position="0.0625 2    -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+        <a-entity bmfont-text="text: 2m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+      </a-box>
+      <a-box position="0.0625 2.25 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+      <a-box position="0.0625 2.5  -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">
+        <a-entity bmfont-text="text: 2.5m; align: right;" position="-1.3 0 0" scale="0.25 0.25 0.25"></a-entity>
+      </a-box>
+
+
+      <a-box position="0.1875 0      -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+        <a-entity bmfont-text="text: 0ft; align: left;" position="0.05 0 0" scale="0.25 0.25 0.25"></a-entity>
+      </a-box>
+      <a-box position="0.1875 0.3048 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+      <a-box position="0.1875 0.6096 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+      <a-box position="0.1875 0.9144 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+        <a-entity bmfont-text="text: 3ft; align: left;" position="0.05 0 0" scale="0.25 0.25 0.25"></a-entity>
+      </a-box>
+      <a-box position="0.1875 1.2192 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+      <a-box position="0.1875 1.524  -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+      <a-box position="0.1875 1.8288 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+        <a-entity bmfont-text="text: 6ft; align: left;" position="0.05 0 0" scale="0.25 0.25 0.25"></a-entity>
+      </a-box>
+      <a-box position="0.1875 2.1336 -0.005" width="0.0625" height="0.00625" depth="0.03" color="#666"></a-box>
+      <a-box position="0.1875 2.4384    -0.005" width="0.0625" height="0.00625" depth="0.03" color="#000">       
+        <a-entity bmfont-text="text: 8ft; align: left;" position="0.05 0 0" scale="0.25 0.25 0.25"></a-entity>
+      </a-box>
+    </a-entity>      
+
+    
+    <a-entity id="usrBounds" position="0 1.6 2" visible="false">
+      <a-entity id="grid" geometry="primitive: cylinder; height: 3; openEnded: true; radius: 2; segmentsHeight: 20; segmentsRadial: 80; thetaLength: 360; thetaStart: 0" material="opacity: 0.2; shader: flat; side: double; transparent: true; color: #6441A5; wireframe: true">
+      </a-entity>
+      <a-entity id="uispace" geometry="primitive: cylinder; height: 1.8; openEnded: true; radius: 2; segmentsHeight: 10; segmentsRadial: 40; thetaLength: 72; thetaStart: 144" material="opacity: 0.2; shader: flat; side: double; transparent: true; color: #452360;">
+      </a-entity>        
+    </a-entity>
+
+
+     
+
+    <!-- deco -->
+    <a-box id="carpet" width="2.75" depth="2" height="0.001" color="#999" position="1.55 0.001 0" rotation="0 0 0"></a-box>
+
+    <a-entity id="chair" position="-1.5 0 -3">
+      <a-box width="0.05" height="0.46" depth="0.05" position="-0.21 0.23 0.23" color="#555"></a-box>
+      <a-box width="0.05" height="0.46" depth="0.05" position="0.21 0.23 -0.23" color="#555"></a-box>
+      <a-box width="0.05" height="0.46" depth="0.05" position="0.21 0.23 0.23" color="#555"></a-box>
+      <a-box width="0.05" height="0.46" depth="0.05" position="-0.21 0.23 -0.23" color="#555"></a-box>
+      <a-box width="0.48" height="0.07" depth="0.52"  position="0 0.49 0" color="#333"></a-box>
+      <a-box width="0.48" height="0.51" depth="0.07"  position="0 0.78 -0.225" color="#333"></a-box>
+    </a-entity>
+    <a-entity id="chair2" position="-2.5 0 -2.2" rotation="0 90 0">
+      <a-box width="0.05" height="0.46" depth="0.05" position="-0.21 0.23 0.23" color="#555"></a-box>
+      <a-box width="0.05" height="0.46" depth="0.05" position="0.21 0.23 -0.23" color="#555"></a-box>
+      <a-box width="0.05" height="0.46" depth="0.05" position="0.21 0.23 0.23" color="#555"></a-box>
+      <a-box width="0.05" height="0.46" depth="0.05" position="-0.21 0.23 -0.23" color="#555"></a-box>
+      <a-box width="0.48" height="0.07" depth="0.52"  position="0 0.49 0" color="#333"></a-box>
+
+      <a-box width="0.48" height="0.51" depth="0.07"  position="0 0.78 -0.225" color="#333"></a-box>
+    </a-entity>
+    <a-entity id="table" position="-1.5 0 -2.2">
+      <a-box width="0.05" height="0.75" depth="0.05" position="-0.5 0.375 0.35" color="#333"></a-box>
+      <a-box width="0.05" height="0.75" depth="0.05" position="0.5 0.375 -0.35" color="#333"></a-box>
+      <a-box width="0.05" height="0.75" depth="0.05" position="0.5 0.375 0.35" color="#333"></a-box>
+      <a-box width="0.05" height="0.75" depth="0.05" position="-0.5 0.375 -0.35" color="#333"></a-box>
+      <a-box width="1.2" height="0.07" depth="0.9"  position="0 0.79 0" color="#999"></a-box>
+    </a-entity>
+    <a-entity id="lamp" position="-3.5 0 -3.5">
+      <a-cylinder height="0.02" radius="0.26" color="#333" position="0 0.02 0"></a-cylinder>
+      <a-cylinder height="1.955" radius="0.02" color="#333" position="0 0.9775 0"></a-cylinder>
+      <a-cylinder height="0.66" radius="0.35" color="#f5f5f5" position="0 1.62 0"></a-cylinder>
+    </a-entity>
+    <a-entity id="frame" position="0 0 0">
+
+    </a-entity>
+    <a-entity id="fireplace" position="0 0 0">
+
+    </a-entity>
+    <a-entity id="bed" position="2.47 0 -2.7">
+      <a-box width="0.1" height="0.1" depth="0.1" position="-0.84 0.05 -1.17" color="#333"></a-box>
+      <a-box width="0.1" height="0.1" depth="0.1" position="0.84 0.05 -1.17" color="#333"></a-box>
+      <a-box width="0.1" height="0.1" depth="0.1" position="0.84 0.05 1.17" color="#333"></a-box>
+      <a-box width="0.1" height="0.1" depth="0.1" position="-0.84 0.05 1.17" color="#333"></a-box>
+      <a-box width="1.78" height="1.32" depth="0.08"  position="0 0.76 -1.18" color="#999"></a-box>
+      <a-box width="1.78" height="0.72" depth="0.08"  position="0 0.46 1.19" color="#999"></a-box>
+      <a-box width="1.78" height="0.32" depth="2.3"  position="0 0.26 0" color="#999"></a-box>
+      <a-box width="1.72" height="0.25" depth="2.3"  position="0 0.54 0" color="#ccc"></a-box>  
+    </a-entity>
+
+    <!-- Background -->
+    <a-plane rotation="-90 0 0" width="20" height="20" color="#8E9EAB" position="0 0 0"></a-plane>
+    <!-- walls -->
+    <a-plane rotation="0 0 0" width="8" height="3" color="#BCC6CD" position="0 1.5 -4"></a-plane>
+    <a-plane rotation="0 -90 0" width="10" height="3" color="#BCC6CD" position="4 1.5 1"></a-plane>
+    <a-plane rotation="0 90 0" width="10" height="3" color="#BCC6CD" position="-4 1.5 1"></a-plane>
+    <a-plane rotation="0 180 0" width="8" height="3" color="#BCC6CD" position="0 1.5 6"></a-plane>
+    <!-- Sky --> 
+    <a-sky color="#EDF1F2"></a-sky>
+
+
+
+    <a-entity id="gravr-cam" camera="user-height:1.6" position="0 0 2" look-controls wasd-controls >
+        <a-entity id="cursor" gravr-control
+            raycaster="objects: [gravr-button]"
+            cursor="fuse: true; fuseTimeout: 1500"
+            position="0 0 -0.5"
+            geometry="primitive: ring; radiusInner:0.007; radiusOuter:0.012"
+            material="color: #FFCC00; shader: flat; opacity:0.9">
+
+            <a-animation 
+              begin="cursor-fusing" 
+              easing="linear" 
+              attribute="scale" 
+              fill="forwards" 
+              from="1 1 1" 
+              to="2 2 2" 
+              dur="100"></a-animation>
+            <a-animation 
+              begin="cursor-fusing" 
+              easing="linear" 
+              attribute="material.color" 
+              fill="forwards" 
+              from="#FFCC00" 
+              to="#FF2D55" 
+              dur="100"></a-animation>
+            <a-animation 
+              begin="cursor-fusing" 
+              easing="linear" 
+              attribute="geometry.thetaLength" 
+              fill="forwards" 
+              from="0" 
+              to="360" 
+              dur="1500"></a-animation>
+            <a-animation 
+              begin="click" 
+              easing="linear" 
+              attribute="scale" 
+              fill="none" 
+              from="2 2 2" 
+              to="4 4 4" 
+              dur="200"></a-animation>
+        </a-entity>
+
+        <a-ring id="keyhole" visible="false" material="shader:flat; src:url(i/keyblack.png); transparent:true" rotation="0 0 0" position="0 0 -0.1" theta-length="360" segments-theta="60" radius-inner="0.01" radius-outer="0.2"></a-ring>
+    </a-entity>
+    
+    <a-entity gravr-menu shake2show="zpos:-1.15" visible="false">
+        <!-- Main Background -->  
+        <a-entity id="main-background" mixin="ring" material="color:#1E4953" position="0 0 -0.0005"></a-entity>
+
+        <!-- Profiles -->  
+        <a-ring id="profile-banner" color="#2E96A0" radius-inner="0.415" radius-outer="0.5" theta-start="22.5" theta-length="135" position="0 0 -0.0001"></a-ring>
+        <a-ring id="profile-background" color="#2C6B75" radius-inner="0.235" radius-outer="0.405" theta-start="24" theta-length="132" position="0 0 -0.00005"></a-ring>
+
+
+        <!-- profileTab-->  
+        <a-entity id="profile4" mixin="profileTab" geometry="theta-start:22.5"
+          ><a-entity gravr-button="" mixin="iconSmall special" position="0.245 0.2025 0.001"></a-entity></a-entity>
+
+        <a-entity id="profile3" mixin="profileTab" geometry="theta-start:56.25"
+          ><a-entity gravr-button mixin="iconSmall bed" position="0.09 0.31 0.001"></a-entity></a-entity>
+
+        <a-entity id="profile2" mixin="profileTab" geometry="theta-start:90"
+          ><a-entity gravr-button mixin="iconSmall airplane" position="-0.09 0.31 0.001"></a-entity></a-entity>
+
+        <a-entity id="profile1" mixin="profileTab" geometry="theta-start:123.75;"
+          ><a-entity gravr-button mixin="iconSmall default" position="-0.245 0.2025 0.001"></a-entity></a-entity>
+
+
+        <!-- panelMain Apply/Cancel -->  
+        <a-entity id="apply" mixin="panelMain" geometry="theta-start:337.5;" material="color:#37D2AF;"
+          ><a-entity gravr-button mixin="iconSmall" material=" src:url(i/apply.png)" position="0.375 0 0.001"></a-entity></a-entity>
+
+        <a-entity id="cancel" mixin="panelMain" geometry="theta-start:157.5;" material="color:#FF7272;"
+          ><a-entity gravr-button mixin="iconSmall" material=" src:url(i/cancel.png)" position="-0.375 0 0.001"></a-entity></a-entity>
+
+
+        <!-- panelButton -->  
+        <a-entity id="settings" mixin="panelButton" geometry="theta-start:292.5"
+          ><a-entity gravr-button mixin="iconLarge settings" position="0.27 -0.263 0.001"></a-entity></a-entity>
+
+        <a-entity id="info" mixin="panelButton" geometry="theta-start:247.5"
+          ><a-entity gravr-button mixin="iconLarge info" position="0 -0.375 0.001"></a-entity></a-entity>
+
+        <a-entity id="voice" mixin="panelButton" geometry="theta-start:202.5"
+          ><a-entity gravr-button mixin="iconLarge voice" position="-0.27 -0.263 0.001"></a-entity></a-entity>
+
+
+        <a-entity id="center" mixin="ring" material="color:#21798A;" geometry="radius-outer:0.2325"></a-entity>
+        <a-entity id="launch" mixin="ring" material="color:#2E96A0;" geometry="radius-outer:0.22" position="0 0 0.001"><a-entity mixin="iconLarge" material="src:url(i/gravrIcon.png)" position="0 0 0.01"></a-entity></a-entity>
+
+        <!-- loader -->
+        <a-entity id="loader" mixin="panelLoader" geometry="theta-length:0">
+          <a-animation attribute="geometry.thetaLength" begin="load" from="0" to="360" easing="linear" dur="3000"></a-animation>
+          <a-animation attribute="material.opacity" begin="load" from="1" to="0" easing="linear" delay="3000" dur="500"></a-animation>
+        </a-entity><!-- end loader -->
+        <!-- info panel -->
+        <a-entity id="infoPanel"
+          geometry="primitive: plane; width:0.75; height:0.4;"
+          material="color:#1E4953"
+          position="0 -0.72 0.075" 
+          rotation="-15 0 0"
+          visible="false"
+          >
+          <a-entity geometry="primitive: plane; width:0.1; height:0.1;" material="color:#1E4953" position="0 0.2 0" rotation="0 0 45"></a-entity>
+          <a-entity geometry="primitive: plane; width:0.1; height:0.1;" material="color:#fff" position="0 0.185 0.001" rotation="0 0 45"></a-entity>
+          <a-entity geometry="primitive: plane; width:0.73; height:0.38;" material="color:#fff" position="0 0 0.002" rotation="0 0 0">
+            <a-entity id="userHeight" bmfont-text="text: Your height = 1.51; align: left; color:#333;" position="-0.325 0.11 0.001" scale="0.215 0.215 0.215"></a-entity>
+            <a-entity id="fov" bmfont-text="text: Your field of vision = 80; align: left; color:#333;" position="-0.325 0.06 0.001" scale="0.215 0.215 0.215"></a-entity>
+            <a-entity id="contrast" bmfont-text="text: Contrast = 0; align: left; color:#333;" position="-0.325 0.01 0.001" scale="0.215 0.215 0.215"></a-entity>
+            <a-entity id="magnify" bmfont-text="text: Magnification = 0; align: left; color:#333;" position="-0.325 -0.04 0.001" scale="0.215 0.215 0.215"></a-entity>
+            <a-entity id="blinder" bmfont-text="text: Blinder set to = 0; align: left; color:#333;" position="-0.325 -0.09 0.001" scale="0.215 0.215 0.215"></a-entity>
+            <a-entity id="fuseDelay" bmfont-text="text: Delay time for gaze click = 0; align: left; color:#333;" position="-0.325 -0.14 0.001" scale="0.215 0.215 0.215"></a-entity>
+          </a-entity>
+        </a-entity><!-- end info panel -->
+        <!-- settings panel -->
+        <a-entity id="settingsPanel"
+          geometry="primitive: plane; width:0.60; height:0.15;"
+          material="color:#1E4953; opacity:1;"
+          position="0.7 -0.3 0.15" 
+          rotation="-10 -20 0"
+          visible="false"
+          >
+          <a-entity geometry="primitive: plane; width:0.1; height:0.1;" material="color:#1E4953" position="-0.3 0 0" rotation="0 0 45"></a-entity>
+          <a-entity geometry="primitive: plane; width:0.09; height:0.09;" material="color:#fff" position="-0.29 0 0.001" rotation="0 0 45"></a-entity>
+          <a-entity
+            geometry="primitive: plane; width:0.58; height:0.13;"
+            material="color:#fff; opacity:1; shader: flat; src: url(i/settingspanel.jpg);"
+            position="0 0 0.0015" 
+            rotation="0 0 0"
+            >
+              <a-entity id="setMagnify" class="settingsBtn" position="-0.24 0 0.001">
+                <a-entity gravr-button="prop: opacity; over: 0.35; out: 0;" mixin="settingsButton" scale="0.85 0.85 0.85"></a-entity>
+              </a-entity>
+              <a-entity id="setContrast" class="settingsBtn" position="-0.149 0 0.001">
+                <a-entity gravr-button="prop: opacity; over: 0.35; out: 0;" mixin="settingsButton" scale="0.85 0.85 0.85"></a-entity>
+              </a-entity>
+              <a-entity id="setFuseDelay" class="settingsBtn" position="-0.0575 0 0.001">
+                <a-entity gravr-button="prop: opacity; over: 0.35; out: 0;" mixin="settingsButton" scale="0.85 0.85 0.85"></a-entity>
+              </a-entity>
+              <a-entity id="setFov" class="settingsBtn" position="0.0375 0 0.001">
+                <a-entity gravr-button="prop: opacity; over: 0.35; out: 0;" mixin="settingsButton" scale="0.85 0.85 0.85"></a-entity>
+              </a-entity>
+              <a-entity id="setBlinder" class="settingsBtn" position="0.135 0 0.001">
+                <a-entity gravr-button="prop: opacity; over: 0.35; out: 0;" mixin="settingsButton" scale="0.85 0.85 0.85"></a-entity>
+              </a-entity>
+              <a-entity id="setUIBounds" class="settingsBtn" position="0.2275 0 0.001">
+                <a-entity gravr-button="prop: opacity; over: 0.35; out: 0;" mixin="settingsButton" scale="0.85 0.85 0.85"></a-entity>
+              </a-entity>
+            </a-entity>
+          </a-entity>
+        </a-entity><!-- end settings panel -->
+    </a-entity>
+
+  </a-scene>
+
+<script type="text/javascript">
+    // LOADING ------
+
+
+
+var scene = document.querySelector('a-scene');
+if (scene.hasLoaded) {
+  run();
+} else {
+  scene.addEventListener('loaded', run);
+}
+function run () {
+//  var entity = scene.querySelector('a-entity[id="launch"]');
+//  entity.setAttribute('material', 'color', 'red');
+  console.log("scene.hasLoaded");
+}
+
+
+
+
+var cursor = document.querySelector("#cursor");
+if (cursor) {
+    cursor.addEventListener("stateremoved", function (evt) {
+        if (evt.detail.state === 'cursor-fusing') {
+            AFRAME.utils.entity.setComponentProperty(this, "geometry.thetaLength", 360);
+            AFRAME.utils.entity.setComponentProperty(this, "material.color", "#FFCC00");
+            AFRAME.utils.entity.setComponentProperty(this, "scale", "1 1 1");
+        }
+        if (evt.detail.state === 'cursor-hovering') {
+        }
+
+    });
+}
+
+
+/*
+
+
+
+*/
+
+
+/*
+var childBtnEntities = document.querySelectorAll("[gravrButton]");
+for (var e = 0; e < childBtnEntities.length; e++) {
+
+  childBtnEntities[e].addEventListener('stateremoved', function (evt) {
+    if (evt.detail.state === 'selected') {
+      console.log('Entity no longer selected.'+ this.parentElement.id);
+    }else if (evt.detail.state === 'mouseover') {
+      console.log('Entity no longer mouseover.'+ this.parentElement.id);
+    }
+  });
+  childBtnEntities[e].addEventListener('stateadded', function (evt) {
+    if (evt.detail.state === 'mouseover') {
+      console.log('Mouseover'+ this.parentElement.id);
+    }
+  });
+}
+
+
+entity.addEventListener('stateremoved', function (evt) {
+  if (evt.detail.state === 'selected') {
+    console.log('Entity no longer selected.');
+  }
+});
+entity.addState('selected');
+entity.is('selected');  // >> true
+entity.removeState('selected');
+entity.is('selected');  // >> false
+*/
+
+</script>
+
+  </body>
+</html>

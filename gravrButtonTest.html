@@ -1,0 +1,74 @@
+
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>buttonTest</title>
+    <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+    <script>
+
+AFRAME.registerComponent('buttonTest', {
+
+  boundClickHandler: undefined,
+  boundMouseEnterHandler: undefined,
+  boundMouseLeaveHandler: undefined,
+
+  init: function() {    
+    this.boundClickHandler = this.clickHandler.bind(this);
+    this.el.addEventListener('click', this.boundClickHandler);
+
+    this.boundMouseEnterHandler = this.mouseEnterHandler.bind(this);
+    this.el.addEventListener('mouseenter', this.boundClickHandler);
+
+    this.boundMouseLeaveHandler = this.mouseLeaveHandler.bind(this);
+    this.el.addEventListener('mouseleave', this.boundClickHandler);
+  },
+
+    clickHandler: function() { 
+      console.log('clickHandler was triggered');
+    },
+    mouseEnterHandler: function() { 
+      console.log('mouseEnterHandler was triggered');
+    },
+    mouseLeaveHandler: function() { 
+      console.log('mouseLeaveHandler was triggered');
+    },
+  remove: function() {
+    this.el.removeEventListener('click', this.boundClickHandler);
+    this.el.removeEventListener('mouseEnter', this.boundMouseEnterHandler);
+    this.el.removeEventListener('mouseLeave', this.boundMouseLeaveHandler);
+  }
+
+});
+
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-entity position="0 1.8 4">
+        <a-camera id="camera" look-controls wasd-controls>
+          <!-- <a-cursor color="#4CC3D9"></a-cursor> -->
+          <a-ring radius-outer="0.30" radius-inner="0.20"
+            position="0 0 -3"
+            material="color: cyan; shader: flat"
+            cursor="maxDistance: 30; fuse: true">
+            <a-animation begin="click" easing="ease-in" attribute="scale"
+              fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+            <a-animation begin="fusing" easing="ease-in" attribute="scale"
+              fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+          </a-ring>
+        </a-camera>
+      </a-entity>
+
+      <!-- Entity buttonTest -->
+      <a-entity buttonTest id="orange-cube" geometry="primitive:box; width:2; depth:2; height:2;" material="color:#F16745; roughness:0.8;" position="-3.5 3.5 -2" rotation="30 30 0"  >
+      </a-entity>
+
+      <!-- Object buttonTest -->
+      <a-sphere buttonTest id="blue-sphere" position="3.5 3.5 -2" rotation="30 30 0" radius="2"
+        color="blue" roughness="0.8">
+      </a-sphere>
+
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+  </body>
+</html>

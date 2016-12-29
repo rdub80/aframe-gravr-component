@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+     <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Gravr test screen</title>
+    <meta name="description" content="gravr — A-Frame">
+    <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+    <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
+
+    <script>
+
+    </script> 
+
+  </head>
+  <body>
+    <a-scene gravr>
+
+
+      <!-- Background -->
+      <a-plane rotation="-90 0 0" width="10" height="10" color="#274259"></a-plane>
+      <a-sky src="grid.jpg" color="#F9FDFC"></a-sky>
+
+
+
+
+      <!-- Camera + cursor. -->
+      <a-entity id="gravr-cam" camera="user-height:1.51" position="0 0 2" look-controls wasd-controls >
+        <a-entity 
+          id="pointer"
+          position="0 0 -0.75"
+          geometry="primitive: ring; radiusOuter: 0.025; radiusInner: 0.015;"
+          material="shader: flat; src: url(i/cursor.jpg);"
+          cursor="fuse: true; fuseTimeout: 1500">
+
+          <a-animation begin="fusing" easing="linear" attribute="scale"
+               fill="both" direction="alternate" from="0.1 0.1 0.1" to="1 1 1" dur="500"></a-animation>
+        
+        </a-entity>
+        
+        <a-entity  
+          id="blinder"
+          rotation="90 0 0" 
+          position="0 0 -0.25">
+          <a-curvedimage id="light" visible="true" src="i/fadewhite.png" height="0.5" radius="1" theta-length="360"></a-curvedimage>        
+          <a-curvedimage id="dark" visible="false" src="i/fadeblack.png" height="0.5" radius="1" theta-length="360"></a-curvedimage>
+        </a-entity>
+
+      </a-entity>
+
+    </a-scene>
+  </body>
+</html>
