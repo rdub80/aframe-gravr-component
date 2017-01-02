@@ -6,7 +6,8 @@
 		"profileUrl":"http:\/\/gravr.io\/sampleuser",
 		"preferredUsername":"sampleuser",
 		"profileData":[{
-			"default":[{
+			"profile1":[{
+				"icon":"default",
 				"height":"1.75",
 				"fov":"80",
 				"bounds":[{
@@ -19,9 +20,10 @@
 				"magnification":"0",
 				"blinder":"0",
 				"blinderColor":"light",
-				"fuseDelay":"1000"
+				"fuseDelay":"1500"
 			}],
-			"airplane":[{
+			"profile2":[{
+				"icon":"airplane",
 				"height":"1.5",
 				"fov":"90",
 				"bounds":[{
@@ -36,7 +38,8 @@
 				"blinderColor":"dark",
 				"fuseDelay":"1000"
 			}],
-			"bed":[{
+			"profile3":[{
+				"icon":"bed",
 				"height":"1.25",
 				"fov":"80",
 				"bounds":[{
@@ -51,7 +54,8 @@
 				"blinderColor":"light",
 				"fuseDelay":"500"
 			}],
-			"special":[{
+			"profile4":[{
+				"icon":"special",
 				"height":"1.25",
 				"fov":"80",
 				"bounds":[{
