@@ -8,7 +8,7 @@
     <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
     <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
     <script src="https://rawgit.com/rdub80/aframe-shake2show-component/master/dist/aframe-shake2show-component.min.js"></script>
-    <script src="js/gravr-menu.js?v=9"></script>
+    <script src="js/gravr-menu.js?v=10"></script>
     <script>
     // for console testing on desktop - shake event
     var triggerShake = document.createEvent("HTMLEvents");
@@ -22,7 +22,7 @@
   </head>
   <body>
   <button onCLick="shakeMe();">Shake!</button>
-  <a-scene gravr>
+  <a-scene gravr antialias="true">
 
     <!-- keep gravr menu as first entity -->
     <a-assets>
@@ -56,7 +56,10 @@
       <a-mixin id="settings" material="src:url(i/icn_settings.png)"></a-mixin>
       <a-mixin id="info" material="src:url(i/icn_info.png)"></a-mixin>
       <a-mixin id="voice" material="src:url(i/icn_voice.png)"></a-mixin>
-      <!-- end PNG Resources -->
+      <!-- end PNG Resources 
+      <img id="case1" src="i/case1.png">
+      <img id="case2" src="i/case2.png">
+      <img id="case3" src="i/case3.png">-->
     </a-assets>
 
 
@@ -116,8 +119,6 @@
     </a-entity>
 
 
-     
-
     <!-- deco -->
     <a-box id="carpet" width="2.75" depth="2" height="0.001" color="#999" position="1.55 0.001 0" rotation="0 0 0"></a-box>
 
@@ -153,10 +154,7 @@
     <a-entity id="frame" position="0 0 0">
 
     </a-entity>
-    <a-entity id="fireplace" position="0 0 0">
-
-    </a-entity>
-    <a-entity id="bed" position="2.47 0 -2.7">
+    <a-entity id="bedframe" position="2.47 0 -2.7">
       <a-box width="0.1" height="0.1" depth="0.1" position="-0.84 0.05 -1.17" color="#333"></a-box>
       <a-box width="0.1" height="0.1" depth="0.1" position="0.84 0.05 -1.17" color="#333"></a-box>
       <a-box width="0.1" height="0.1" depth="0.1" position="0.84 0.05 1.17" color="#333"></a-box>
@@ -165,6 +163,40 @@
       <a-box width="1.78" height="0.72" depth="0.08"  position="0 0.46 1.19" color="#999"></a-box>
       <a-box width="1.78" height="0.32" depth="2.3"  position="0 0.26 0" color="#999"></a-box>
       <a-box width="1.72" height="0.25" depth="2.3"  position="0 0.54 0" color="#ccc"></a-box>  
+    </a-entity>
+    <a-entity id="fireplace" position="0 0 6.13" rotation="0 180 0">
+      <a-box width="1.24" height="0.07" depth="0.38" position="0 0.0375 0.3" color="#777"></a-box>
+      <a-box width="1.2" height="0.22" depth="0.15" position="0 1.03 0.19" color="#aaa"></a-box>
+      <a-box width="0.22" height="0.85" depth="0.15" position="-0.49 0.495 0.19" color="#f9f9f9"></a-box>
+      <a-box width="0.22" height="0.85" depth="0.15" position="0.49 0.495 0.19" color="#f9f9f9"></a-box>
+      <a-box width="0.76" height="0.3" depth="0.13" position="0 0.77 0.18" color="#fff"></a-box>
+      <a-box width="0.175" height="0.55" depth="0.13" position="-0.3 0.345 0.18" color="#f0f0f0"></a-box>
+      <a-box width="0.175" height="0.55" depth="0.13" position="0.3 0.345 0.18" color="#f0f0f0"></a-box>
+    </a-entity>
+    <a-entity id="sofacouch" position="2 0 3.5" rotation="0 -30 0">
+      <a-box width="2.337" height="0.178" depth="0.657" position="0 0.089 0" color="#666"></a-box>
+      <a-box width="2.438" height="0.051" depth="0.914" position="0 0.2 0" color="#333"></a-box>
+      <a-box width="2.438" height="0.457" depth="0.051" position="0 0.45 -0.43" color="#333"></a-box>
+      <a-box width="0.051" height="0.457" depth="0.914" position="-1.19 0.45 0" color="#333"></a-box>
+      <a-box width="0.051" height="0.457" depth="0.914" position="1.19 0.45 0" color="#333"></a-box>
+      <a-box width="0.14" height="0.465" depth="0.863" position="-1.09 0.46 0.03" color="#eee"></a-box>
+      <a-box width="0.14" height="0.465" depth="0.863" position="1.09 0.46 0.03" color="#eee"></a-box>
+      <a-box width="0.67" height="0.5" depth="0.14" position="-0.68 0.46 -0.33" color="#ddd"></a-box>
+      <a-box width="0.67" height="0.5" depth="0.14" position="0 0.46 -0.33" color="#ddd"></a-box>
+      <a-box width="0.67" height="0.5" depth="0.14" position="0.68 0.46 -0.33" color="#ddd"></a-box>
+      <a-box width="0.67" height="0.14" depth="0.75" position="-0.68 0.3 0.12" color="#ccc"></a-box>
+      <a-box width="0.67" height="0.14" depth="0.75" position="0 0.3 0.12" color="#ccc"></a-box>
+      <a-box width="0.67" height="0.14" depth="0.75" position="0.68 0.3 0.12" color="#ccc"></a-box>
+    </a-entity>
+    <a-entity id="coffeetable" position="1.5 0.1635 4.65">
+      <a-cone color="#333" radius-bottom="0.01" radius-top="0.457" height="0.327"></a-cone>
+      <a-cone color="#333" radius-bottom="0.25" radius-top="0.01" height="0.327"></a-cone>
+    </a-entity>
+    <a-entity id="desk">
+
+    </a-entity>
+    <a-entity id="officechair">
+    
     </a-entity>
 
     <!-- Background -->
@@ -179,9 +211,76 @@
 
 
 
+    <!-- teleportation -->
+    <a-entity id="init" teleport position="0 0.05 2"
+    geometry="primitive: cylinder; height: 1.6; radius: 0.4; segmentsHeight: 1; segmentsRadial: 18" material="opacity: 0.25; transparent: true; color: red;"></a-entity>
+
+    <a-entity id="kitchen" teleport="height:1.3; rotation:0 -90 0" position="-2.5 0.65 -2.2"
+    geometry="primitive: cylinder; height: 1.3; radius: 0.4; segmentsHeight: 1; segmentsRadial: 18" material="opacity: 0.25; transparent: true; color: #fffc93;"></a-entity>
+    <a-entity id="ui-case1" geometry="primitive: cylinder; height: 0.75; openEnded: true; radius: 2; segmentsHeight: 10; segmentsRadial: 40; thetaLength: 50; thetaStart: 150" material="opacity: 0.2; shader: flat; side: double; transparent: false; color: #452360;" position="-2.5 1.80 -2.2" rotation="0 -90 0" visible="false">
+    </a-entity>  
+
+    <a-entity id="bed" teleport="height:1.2; rotation:0 160 0" position="2.5 0.6 -3.2"
+    geometry="primitive: cylinder; height: 1.5; radius: 0.4; segmentsHeight: 1; segmentsRadial: 18" material="opacity: 0.25; transparent: true; color: #fffc93;"></a-entity>
+    <a-entity id="ui-case2" geometry="primitive: cylinder; height: 1.2; openEnded: true; radius: 2; segmentsHeight: 10; segmentsRadial: 40; thetaLength: 72; thetaStart: 144" material="opacity: 0.2; shader: flat; side: double; transparent: false; color: #452360;" position="2.5 1.4 -3.2" rotation="20 170 0" visible="false">
+    </a-entity>  
+
+    <a-entity id="sofa" teleport="height:1.1; rotation:0 110 0" position="2.4 0.55 3.85"
+    geometry="primitive: cylinder; height: 1.5; radius: 0.4; segmentsHeight: 1; segmentsRadial: 18" material="opacity: 0.25; transparent: true; color: #fffc93;"></a-entity>
+    <a-entity id="ui-case3" geometry="primitive: cylinder; height: 1.25; openEnded: true; radius: 2; segmentsHeight: 10; segmentsRadial: 40; thetaLength: 50; thetaStart: 160" material="opacity: 0.2; shader: flat; side: double; transparent: false; color: #452360;" position="2.4 1.2 3.85" rotation="0 110 0" visible="false">
+    </a-entity>  
+
+
+    <!-- cameras -->
     <a-entity id="gravr-cam" camera="user-height:1.6" position="0 0 2" look-controls wasd-controls >
         <a-entity id="cursor" gravr-control
-            raycaster="objects: [gravr-button]"
+            raycaster="objects: [gravr-button],[teleport]"
+            cursor="fuse: true; fuseTimeout: 1500"
+            position="0 0 -0.5"
+            geometry="primitive: ring; radiusInner:0.007; radiusOuter:0.012"
+            material="color: #FFCC00; shader: flat; opacity:0.9">
+
+            <a-animation 
+              begin="cursor-fusing" 
+              easing="linear" 
+              attribute="scale" 
+              fill="forwards" 
+              from="1 1 1" 
+              to="2 2 2" 
+              dur="100"></a-animation>
+            <a-animation 
+              begin="cursor-fusing" 
+              easing="linear" 
+              attribute="material.color" 
+              fill="forwards" 
+              from="#FFCC00" 
+              to="#FF2D55" 
+              dur="100"></a-animation>
+            <a-animation 
+              id="rotateTimer"
+              begin="cursor-fusing" 
+              easing="linear" 
+              attribute="geometry.thetaLength"
+              fill="forwards" 
+              from="0" 
+              to="360" 
+              dur="1500"></a-animation>
+            <a-animation 
+              begin="click" 
+              easing="linear" 
+              attribute="scale" 
+              fill="none" 
+              from="2 2 2" 
+              to="4 4 4" 
+              dur="200"></a-animation>
+        </a-entity>
+
+        <a-ring id="keyhole" visible="false" material="shader:flat; src:url(i/keyblack.png); transparent:false" rotation="0 0 0" position="0 0 -0.1" theta-length="360" segments-theta="60" radius-inner="0.07" radius-outer="0.25"></a-ring>
+    </a-entity>
+
+    <a-entity id="gravr-cam-case1" camera="active:false;user-height:1.3" position="-2.5 1.3 -2.2" rotation="0 -90 0" look-controls wasd-controls >
+        <a-entity id="cursorC1" gravr-control
+            raycaster="objects: [gravr-button],[teleport]"
             cursor="fuse: true; fuseTimeout: 1500"
             position="0 0 -0.5"
             geometry="primitive: ring; radiusInner:0.007; radiusOuter:0.012"
@@ -206,7 +305,7 @@
             <a-animation 
               begin="cursor-fusing" 
               easing="linear" 
-              attribute="geometry.thetaLength" 
+              attribute="geometry.thetaLength"
               fill="forwards" 
               from="0" 
               to="360" 
@@ -220,11 +319,97 @@
               to="4 4 4" 
               dur="200"></a-animation>
         </a-entity>
-
-        <a-ring id="keyhole" visible="false" material="shader:flat; src:url(i/keyblack.png); transparent:true" rotation="0 0 0" position="0 0 -0.1" theta-length="360" segments-theta="60" radius-inner="0.01" radius-outer="0.2"></a-ring>
     </a-entity>
-    
-    <a-entity gravr-menu shake2show="zpos:-1.15" visible="false">
+
+    <a-entity id="gravr-cam-case2" camera="active:false;user-height:1.2" position="2.5 1.2 -3.2" rotation="0 170 0" look-controls wasd-controls >
+        <a-entity id="cursorC2" gravr-control
+            raycaster="objects: [gravr-button],[teleport]"
+            cursor="fuse: true; fuseTimeout: 1500"
+            position="0 0 -0.5"
+            geometry="primitive: ring; radiusInner:0.007; radiusOuter:0.012"
+            material="color: #FFCC00; shader: flat; opacity:0.9">
+
+            <a-animation 
+              begin="cursor-fusing" 
+              easing="linear" 
+              attribute="scale" 
+              fill="forwards" 
+              from="1 1 1" 
+              to="2 2 2" 
+              dur="100"></a-animation>
+            <a-animation 
+              begin="cursor-fusing" 
+              easing="linear" 
+              attribute="material.color" 
+              fill="forwards" 
+              from="#FFCC00" 
+              to="#FF2D55" 
+              dur="100"></a-animation>
+            <a-animation 
+              begin="cursor-fusing" 
+              easing="linear" 
+              attribute="geometry.thetaLength"
+              fill="forwards" 
+              from="0" 
+              to="360" 
+              dur="1500"></a-animation>
+            <a-animation 
+              begin="click" 
+              easing="linear" 
+              attribute="scale" 
+              fill="none" 
+              from="2 2 2" 
+              to="4 4 4" 
+              dur="200"></a-animation>
+        </a-entity>
+    </a-entity>
+
+    <a-entity id="gravr-cam-case3" camera="active:false;user-height:1.1" position="2.4 1.1 3.85" rotation="0 110 0" look-controls wasd-controls >
+        <a-entity id="cursorC3" gravr-control
+            raycaster="objects: [gravr-button],[teleport]"
+            cursor="fuse: true; fuseTimeout: 1500"
+            position="0 0 -0.5"
+            geometry="primitive: ring; radiusInner:0.007; radiusOuter:0.012"
+            material="color: #FFCC00; shader: flat; opacity:0.9">
+
+            <a-animation 
+              begin="cursor-fusing" 
+              easing="linear" 
+              attribute="scale" 
+              fill="forwards" 
+              from="1 1 1" 
+              to="2 2 2" 
+              dur="100"></a-animation>
+            <a-animation 
+              begin="cursor-fusing" 
+              easing="linear" 
+              attribute="material.color" 
+              fill="forwards" 
+              from="#FFCC00" 
+              to="#FF2D55" 
+              dur="100"></a-animation>
+            <a-animation 
+              begin="cursor-fusing" 
+              easing="linear" 
+              attribute="geometry.thetaLength"
+              fill="forwards" 
+              from="0" 
+              to="360" 
+              dur="1500"></a-animation>
+            <a-animation 
+              begin="click" 
+              easing="linear" 
+              attribute="scale" 
+              fill="none" 
+              from="2 2 2" 
+              to="4 4 4" 
+              dur="200"></a-animation>
+        </a-entity>
+    </a-entity>
+
+
+
+    <a-entity gravr-menu shake2show="zpos:-1.15" visible="false" scale="0.00001 0.00001 0.00001">
         <!-- Main Background -->  
         <a-entity id="main-background" mixin="ring" material="color:#1E4953" position="0 0 -0.0005"></a-entity>
 
@@ -276,21 +461,23 @@
         </a-entity><!-- end loader -->
         <!-- info panel -->
         <a-entity id="infoPanel"
-          geometry="primitive: plane; width:0.75; height:0.4;"
+          geometry="primitive: plane; width:0.85; height:0.4;"
           material="color:#1E4953"
           position="0 -0.72 0.075" 
           rotation="-15 0 0"
           visible="false"
+          
           >
           <a-entity geometry="primitive: plane; width:0.1; height:0.1;" material="color:#1E4953" position="0 0.2 0" rotation="0 0 45"></a-entity>
           <a-entity geometry="primitive: plane; width:0.1; height:0.1;" material="color:#fff" position="0 0.185 0.001" rotation="0 0 45"></a-entity>
-          <a-entity geometry="primitive: plane; width:0.73; height:0.38;" material="color:#fff" position="0 0 0.002" rotation="0 0 0">
-            <a-entity id="userHeight" bmfont-text="text: Your height = 1.51; align: left; color:#333;" position="-0.325 0.11 0.001" scale="0.215 0.215 0.215"></a-entity>
-            <a-entity id="fov" bmfont-text="text: Your field of vision = 80; align: left; color:#333;" position="-0.325 0.06 0.001" scale="0.215 0.215 0.215"></a-entity>
-            <a-entity id="contrast" bmfont-text="text: Contrast = 0; align: left; color:#333;" position="-0.325 0.01 0.001" scale="0.215 0.215 0.215"></a-entity>
-            <a-entity id="magnify" bmfont-text="text: Magnification = 0; align: left; color:#333;" position="-0.325 -0.04 0.001" scale="0.215 0.215 0.215"></a-entity>
-            <a-entity id="blinder" bmfont-text="text: Blinder set to = 0; align: left; color:#333;" position="-0.325 -0.09 0.001" scale="0.215 0.215 0.215"></a-entity>
-            <a-entity id="fuseDelay" bmfont-text="text: Delay time for gaze click = 0; align: left; color:#333;" position="-0.325 -0.14 0.001" scale="0.215 0.215 0.215"></a-entity>
+          <a-entity geometry="primitive: plane; width:0.83; height:0.38;" material="color:#fff" position="0 0 0.002" rotation="0 0 0">
+            <a-entity id="profileSelection" bmfont-text="text: Profile Name = default; align: left; color:#333;" position="-0.385 0.14 0.001" scale="0.215 0.215 0.215"></a-entity>
+            <a-entity id="userHeight" bmfont-text="text: Your height = 1.51; align: left; color:#333;" position="-0.385 0.09 0.001" scale="0.215 0.215 0.215"></a-entity>
+            <a-entity id="fov" bmfont-text="text: Your field of vision = 80; align: left; color:#333;" position="-0.385 0.04 0.001" scale="0.215 0.215 0.215"></a-entity>
+            <a-entity id="contrast" bmfont-text="text: Contrast = 0; align: left; color:#333;" position="-0.385 -0.01 0.001" scale="0.215 0.215 0.215"></a-entity>
+            <a-entity id="magnify" bmfont-text="text: Magnification = 0; align: left; color:#333;" position="-0.385 -0.06 0.001" scale="0.215 0.215 0.215"></a-entity>
+            <a-entity id="blinder" bmfont-text="text: Blinder set to = 0; align: left; color:#333;" position="-0.385 -0.11 0.001" scale="0.215 0.215 0.215"></a-entity>
+            <a-entity id="fuseDelay" bmfont-text="text: Delay time for gaze click = 0; align: left; color:#333;" position="-0.385 -0.16 0.001" scale="0.215 0.215 0.215"></a-entity>
           </a-entity>
         </a-entity><!-- end info panel -->
         <!-- settings panel -->
@@ -300,6 +487,8 @@
           position="0.7 -0.3 0.15" 
           rotation="-10 -20 0"
           visible="false"
+
+
           >
           <a-entity geometry="primitive: plane; width:0.1; height:0.1;" material="color:#1E4953" position="-0.3 0 0" rotation="0 0 45"></a-entity>
           <a-entity geometry="primitive: plane; width:0.09; height:0.09;" material="color:#fff" position="-0.29 0 0.001" rotation="0 0 45"></a-entity>
@@ -337,8 +526,6 @@
 <script type="text/javascript">
     // LOADING ------
 
-
-
 var scene = document.querySelector('a-scene');
 if (scene.hasLoaded) {
   run();
@@ -346,13 +533,15 @@ if (scene.hasLoaded) {
   scene.addEventListener('loaded', run);
 }
 function run () {
-//  var entity = scene.querySelector('a-entity[id="launch"]');
-//  entity.setAttribute('material', 'color', 'red');
-  console.log("scene.hasLoaded");
+  scene.addEventListener('enter-vr', function () {
+    console.log("ENTERED VR");
+
+  });
 }
 
-
-
+scene.addEventListener('camera-set-active', function(evt) {
+    console.log("camera activated " +evt.detail.cameraEl );
+});
 
 var cursor = document.querySelector("#cursor");
 if (cursor) {
@@ -368,12 +557,50 @@ if (cursor) {
     });
 }
 
+var cursorC1 = document.querySelector("#cursorC1");
+if (cursorC1) {
+    cursorC1.addEventListener("stateremoved", function (evt) {
+        if (evt.detail.state === 'cursor-fusing') {
+            AFRAME.utils.entity.setComponentProperty(this, "geometry.thetaLength", 360);
+            AFRAME.utils.entity.setComponentProperty(this, "material.color", "#FFCC00");
+            AFRAME.utils.entity.setComponentProperty(this, "scale", "1 1 1");
+        }
+        if (evt.detail.state === 'cursor-hovering') {
+        }
 
-/*
+    });
+}
+
+var cursorC2 = document.querySelector("#cursorC2");
+if (cursorC2) {
+    cursorC2.addEventListener("stateremoved", function (evt) {
+        if (evt.detail.state === 'cursor-fusing') {
+            AFRAME.utils.entity.setComponentProperty(this, "geometry.thetaLength", 360);
+            AFRAME.utils.entity.setComponentProperty(this, "material.color", "#FFCC00");
+            AFRAME.utils.entity.setComponentProperty(this, "scale", "1 1 1");
+        }
+        if (evt.detail.state === 'cursor-hovering') {
+        }
+
+    });
+}
+
+var cursorC3 = document.querySelector("#cursorC3");
+if (cursorC3) {
+    cursorC3.addEventListener("stateremoved", function (evt) {
+        if (evt.detail.state === 'cursor-fusing') {
+            AFRAME.utils.entity.setComponentProperty(this, "geometry.thetaLength", 360);
+            AFRAME.utils.entity.setComponentProperty(this, "material.color", "#FFCC00");
+            AFRAME.utils.entity.setComponentProperty(this, "scale", "1 1 1");
+        }
+        if (evt.detail.state === 'cursor-hovering') {
+        }
+
+    });
+}
 
 
-
-*/
+/* */
 
 
 /*
@@ -393,7 +620,6 @@ for (var e = 0; e < childBtnEntities.length; e++) {
     }
   });
 }
-
 
 entity.addEventListener('stateremoved', function (evt) {
   if (evt.detail.state === 'selected') {
