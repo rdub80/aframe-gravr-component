@@ -1,9 +1,12 @@
-// setup variables
-var buttons = ["yes","no"],
-    profileBtns = [],
-    userName = "anonymous",
+if (typeof AFRAME === 'undefined') {
+  throw new Error('Component attempted to register before AFRAME was available.');
+}
+
+// setup gravr variable defaults
+var userName = "anonymous",
     hash = "",
     profileUrl = "http:\/\/gravr.io",
+    profileIcon = "default",
     heightData = 1.6,
     fovData = 80,
     boundData = [],
@@ -12,12 +15,12 @@ var buttons = ["yes","no"],
     blinderData = 0, 
     blinderColorData = "light", 
     fuseDelayData = 0, 
-    collapsed = true, 
     jsonData = {}, 
-    gravrProfile = {},
+    activeProfile = {},
+    gravrProfiles = [],
     clearGravr;
 
-// parse data from json feed to come
+// parse data from json feed
 var getJSON = function(url) {
   return new Promise(function(resolve, reject) {
     var xhr = new XMLHttpRequest();
@@ -35,7 +38,7 @@ var getJSON = function(url) {
   });
 };
 
-getJSON('/js/sample.json').then(function(data) {
+getJSON('/js/example.json').then(function(data) {
     
     jsonData = data.entry[0];
 
@@ -47,46 +50,44 @@ getJSON('/js/sample.json').then(function(data) {
     //push profiles into button array
     for (var key in jsonData.profileData[0]) {
       if (jsonData.profileData[0].hasOwnProperty(key)) {
-        profileBtns.push(key);
+        gravrProfiles.push(key);
       }
     }
-    console.log(profileBtns[0]);
-    //execute user profiles function
-    updateGravr(jsonData, profileBtns[0]);
+    //execute default profile
+    updateGravr(jsonData, gravrProfiles[0]);
 
 }, function(status) { //error detection....
-  console.log('JSON Error');
+  	console.log('JSON Error');
 });
 
 
 function updateGravr(obj, profile) {
 
-  var gravrProfile = obj.profileData[0];
+	var activeProfile = obj.profileData[0];
 
-  for (var key in gravrProfile) {
-    if (gravrProfile.hasOwnProperty(key)) {
-      if(key === profile){
-        heightData = gravrProfile[key][0].height;
-        fovData = gravrProfile[key][0].fov;
-        boundData = [
-                    gravrProfile[key][0].bounds[0].top,
-                    gravrProfile[key][0].bounds[0].right,
-                    gravrProfile[key][0].bounds[0].bottom,
-                    gravrProfile[key][0].bounds[0].left
-                    ];
-        contrastData = gravrProfile[key][0].contrast;
-        magnifyData = gravrProfile[key][0].magnification;
-        blinderData = gravrProfile[key][0].blinder;
-        blinderColorData = gravrProfile[key][0].blinderColor;
-        fuseDelayData = gravrProfile[key][0].fuseDelay;
-      }
-    }
-  }
-
-  console.log(Object.keys(gravrProfile)[0] + 'userName:' + userName + 'heightData:' +heightData + 'fovData:' + fovData);
+	for (var key in activeProfile) {
+		if (activeProfile.hasOwnProperty(key)) {
+			if(key === profile){
+				profileIcon = activeProfile[key][0].icon;
+				heightData = activeProfile[key][0].height;
+				fovData = activeProfile[key][0].fov;
+				boundData = [
+							activeProfile[key][0].bounds[0].top,
+				        	activeProfile[key][0].bounds[0].right,
+				        	activeProfile[key][0].bounds[0].bottom,
+				        	activeProfile[key][0].bounds[0].left
+				        	];
+				contrastData = activeProfile[key][0].contrast;
+				magnifyData = activeProfile[key][0].magnification;
+				blinderData = activeProfile[key][0].blinder;
+				blinderColorData = activeProfile[key][0].blinderColor;
+				fuseDelayData = activeProfile[key][0].fuseDelay;
+			}
+		}
+	}
 
     //view detail panel
-
+    var txtProfile = document.querySelector('#profileSelection');
     var txtUserHeight = document.querySelector('#userHeight');
     var txtFov = document.querySelector('#fov');
     var txtContrast = document.querySelector('#contrast');
@@ -99,6 +100,7 @@ function updateGravr(obj, profile) {
     var feet = Math.floor(inches / 12);
     inches %= 12;
 
+    txtProfile.setAttribute('bmfont-text','text', 'Active Profile: '+ profileIcon);
     txtUserHeight.setAttribute('bmfont-text','text', 'Your height: '+ heightData + 'meters / '+ feet + 'ft ' + inches + 'in');
     txtFov.setAttribute('bmfont-text','text', 'Your field of vision: '+ fovData + 'degree');
     txtContrast.setAttribute('bmfont-text','text', 'UI Contrast: '+ contrastData*100 + '%');
@@ -106,185 +108,275 @@ function updateGravr(obj, profile) {
     txtBlinder.setAttribute('bmfont-text','text', 'Blinder set to: '+ blinderData*100 + '%, color mode: ' + blinderColorData);
     txtFuseDelay.setAttribute('bmfont-text','text', 'Delay time for gaze click: '+ fuseDelayData + 'ms');
 
-
-}
-
-//  scene.
-// Gaining access to the internal three.js scene graph.
-
-//setAttribute helper function
-function setAttributes(el, attrs) {
-  for(var key in attrs) {
-    el.setAttribute(key, attrs[key]);
-  }
+    applyToSet();
 }
 
 
-//Component to change to apply profile values on click/fuse.
-AFRAME.registerComponent('gravr', {
+/**
+ * gravrButton component for A-Frame.
+*/ 
 
-  schema: {
-      trigger: {
-          default: 'click'
-      }
-  },
+AFRAME.registerComponent('gravr-button', {
 
-  init: function () {
-    
-//    this.gravrInitSetup(); //hard coded menu for now
-    this.btnMain = document.querySelector('a-entity[id="gravr"]');
-    this.profile = document.querySelector('a-entity[gravr-profile]'); //#mainButton
-    this.btnYes = document.querySelector('a-entity[id="yes"]');
-    this.btnNo = document.querySelector('a-entity[id="no"]');
+	schema: {
+		trigger: {
+			default: 'click'
+		},
+		prop: {
+		 	default: 'opacity'
+		},
+		over: {
+		 	default: '0.75'
+		},
+		out: {
+		 	default: '1.0'
+		}
+	},
 
-    this.btnDefault = document.querySelector('a-entity[id="default"]');
-    this.btnAirplane = document.querySelector('a-entity[id="airplane"]');
-    this.btnBed = document.querySelector('a-entity[id="bed"]');
-    this.btnSpecial = document.querySelector('a-entity[id="special"]');
-    this.btnSettingsPanel = document.querySelector('a-entity[id="settings"]');
+	boundClickHandler: undefined,
+	boundMouseEnterHandler: undefined,
+	boundMouseLeaveHandler: undefined,
 
-    this.btnYes.setAttribute('visible', false);
-    this.btnNo.setAttribute('visible', false);
+	init: function() {		
+		this.boundClickHandler = this.clickHandler.bind(this);
+		this.el.addEventListener(this.data.trigger, this.boundClickHandler);
 
-    this.profile.addEventListener(this.data.trigger, this.showControls.bind(this));
-    this.btnYes.addEventListener(this.data.trigger, this.doGravr.bind(this));
-    this.btnNo.addEventListener(this.data.trigger, this.closeGravr.bind(this));
+		this.boundMouseEnterHandler = this.mouseEnterHandler.bind(this);
+		this.el.addEventListener('mouseenter', this.boundMouseEnterHandler);
 
-    this.btnDefault.addEventListener(this.data.trigger, this.switchProfile.bind(this));
-    this.btnAirplane.addEventListener(this.data.trigger, this.switchProfile.bind(this));
-    this.btnBed.addEventListener(this.data.trigger, this.switchProfile.bind(this));
-    this.btnSpecial.addEventListener(this.data.trigger, this.switchProfile.bind(this));
+		this.boundMouseLeaveHandler = this.mouseLeaveHandler.bind(this);
+		this.el.addEventListener('mouseleave', this.boundMouseLeaveHandler);
+	},
+    clickHandler: function() { 
+    	if(this.el.parentElement.is('selected') && !this.el.parentElement.is('tab')){
+	    	this.el.parentElement.removeState('selected');
+    	}else{
+	    	this.el.parentElement.addState('selected');
+    	}
+    },
+    mouseEnterHandler: function() { 
+    	this.el.setAttribute('material', this.data.prop, this.data.over);
+    	this.el.parentElement.addState('hovering');
+    },
+    mouseLeaveHandler: function() { 
+    	this.el.setAttribute('material', this.data.prop, this.data.out);
+    	this.el.parentElement.removeState('hovering');
+    },
+	remove: function() {
+		this.el.removeEventListener('click', this.boundClickHandler);
+		this.el.removeEventListener('mouseEnter', this.boundMouseEnterHandler);
+		this.el.removeEventListener('mouseLeave', this.boundMouseLeaveHandler);
+    	this.el.parentElement.removeState('hovering');
+    	this.el.parentElement.removeState('selected');
+	}
 
-    this.btnSettingsPanel.addEventListener(this.data.trigger, this.showPanel.bind(this));
-    this.panelShowing = false;
-
-  },
-
-  gravrInitSetup: function(){
-    
-    console.log("gravr-init-setup");
-    var scene = document.querySelector('a-scene[gravr]');
-
-    var gravrUI = document.createElement('a-entity');
-    gravrUI.setAttribute("id", "gravr2");
-    //gravrUI.setAttribute("shake2show");
-    gravrUI.setAttribute('visible', true);
-    gravrUI.setAttribute("geometry", "primitive: box; height:0.25; width:0.25; depth:0.05;");
-    gravrUI.setAttribute('material', 'color', 'red');
-    gravrUI.setAttribute('position', { x: 0, y: 0, z: 0 });
-
-    for (var i = 0; i < buttons.length; i++) {
-      var entity = document.createElement('a-entity');
-      setAttributes(entity, {
-        "id": buttons[i], 
-        "geometry": "primitive: box; height:0.15; width:0.15; depth:0.05;"
-      });
-      entity.setAttribute('material', 'color', 'green');
-      entity.setAttribute('position', { x: i*0.25 , y: 1, z: 0 });
-      gravrUI.appendChild(entity);
-    }
-
-    for (var i = 0; i < profileBtns.length; i++) {
-      var entity = document.createElement('a-entity');
-      setAttributes(entity, {
-        "id": profileBtns[i], 
-        "geometry": "primitive: box; height:0.15; width:0.15; depth:0.05;"
-      });
-      entity.setAttribute('material', 'color', 'pink');
-      entity.setAttribute('position', { x: i*0.25 , y: 0.5, z: 0 });
-      gravrUI.appendChild(entity);
-    }
-
-    scene.appendChild(gravrUI);
+});
 
 
-    console.log("gravrUI Y "+gravrUI.object3D.getWorldPosition().y)
-    console.log("gravrUI x "+gravrUI.object3D.getWorldPosition().x)
-    console.log("gravrUI z "+gravrUI.object3D.getWorldPosition().z)
 
-  },
+AFRAME.registerComponent('gravr-menu', {
+
+  	init: function () {
+
+		this.btnApply = document.querySelector('a-entity[id="apply"]');
+		this.btnApply.addEventListener('stateadded', function (evt) {
+			if (evt.detail.state === 'selected') {
+	    		console.log('apply');
+			}
+		});
+
+		this.btnCancel = document.querySelector('a-entity[id="cancel"]');
+		this.btnCancel.addEventListener('stateadded', function (evt) {
+			if (evt.detail.state === 'selected') {
+	    		closeMenu();
+			}
+		});
+
+		//profile buttons
+		this.profileBtns = document.querySelectorAll('a-entity[mixin="profileTab"]');
+
+		for (var e = 0; e < this.profileBtns.length; e++) {
+
+			this.profileBtns[e].addState('tab');
+			this.profileBtns[e].addEventListener('stateadded', function (evt) {
+				if (evt.detail.state === 'selected') {
+					this.setAttribute('material','opacity','1');
+					this.firstChild.setAttribute('material', 'src', 'url(i/' + this.id + '_on.png)');
+		    		updateTabs(this);
+				}
+			});
+			this.profileBtns[e].addEventListener('stateremoved', function (evt) {
+				if (evt.detail.state === 'selected') {
+					this.setAttribute('material','opacity','0');
+					this.firstChild.setAttribute('material', 'src', 'url(i/' + this.id + '.png)');
+				}
+			});
+		}
+		//default selected
+		this.profileBtns[this.profileBtns.length-1].addState('selected');
+	
+		//profile buttons
+		this.panelButtons = document.querySelectorAll('a-entity[mixin="panelButton"]');
+
+		for (var e = 0; e < this.panelButtons.length; e++) {
+			this.panelButtons[e].addEventListener('stateadded', function (evt) {
+				if (evt.detail.state === 'selected') {
+					this.firstChild.setAttribute('material', 'src', 'url(i/icn_' + this.id + '_on.png)');
+		    		showPanels(this);
+				}
+			});
+			this.panelButtons[e].addEventListener('stateremoved', function (evt) {
+				if (evt.detail.state === 'selected') {
+					this.firstChild.setAttribute('material', 'src', 'url(i/icn_' + this.id + '.png)');
+		    		showPanels(this);				
+				}
+			});
+		}
+
+		//settings buttons
+		this.settingsButtons = document.querySelectorAll('a-entity[class="settingsBtn"]');
+
+		for (var e = 0; e < this.settingsButtons.length; e++) {
+			this.settingsButtons[e].addEventListener('stateadded', function (evt) {
+				if (evt.detail.state === 'selected') {
+			    	setValue(this);
+				}
+			});
+			this.settingsButtons[e].addEventListener('stateremoved', function (evt) {
+				if (evt.detail.state === 'selected') {
+		    		setValue(this);		
+				}
+			});
+		}
+
+	}
+
+});
+
+function updateTabs(tab) {
+	var profileTabs = document.querySelectorAll('a-entity[mixin="profileTab"]');	
+	for (var e = 0; e < profileTabs.length; e++) {
+		if(profileTabs[e] != tab){
+			profileTabs[e].removeState('selected');
+		}
+	}
+	if(Object.keys(jsonData).length){ //update profile if json loaded
+		updateGravr(jsonData, tab.id);
+	}
+}
+
+function showPanels(btn) {
+	var infoPanel = document.querySelector('a-entity[id="infoPanel"]');	
+	var settingsPanel = document.querySelector('a-entity[id="settingsPanel"]');	
+
+	switch(btn.id) {
+	    
+	    case 'info':
+
+			if(btn.is('selected')){
+				infoPanel.setAttribute('visible', true);
+			}else{
+				infoPanel.setAttribute('visible', false);				
+			}
+
+	      break;
+	    case 'settings':
+
+			if(btn.is('selected')){
+				settingsPanel.setAttribute('visible', true);
+			}else{
+				settingsPanel.setAttribute('visible', false);				
+			}
+
+	      break;
+	    case 'voice':
+
+			console.log("toggle " + btn.id);
+	}
+}
 
 
-  // time out for gravr module
-  hideMenuTimer: function () {
-    menuTimer = window.setTimeout(doHideMenu, 2000);
-  },
 
-  doHideMenu: function () {
+function setValue(btn) {
+	console.log("setValue ---" + btn.id);
+	var blinder = document.querySelector('a-ring[id="keyhole"]');
+	var bounds = document.querySelector('a-entity[id="usrBounds"]');
+    var cameraEl = document.querySelector('#gravr-cam');
+    var cursor = document.querySelector('#cursor');
+    var rotateTimer = document.querySelector('#rotateTimer');
 
-    collapsed = true;
+	switch(btn.id) {
+	    
+	    case 'setMagnify':
+			console.log("set " + btn.id);
 
-    var gravrModal = document.querySelector('#gravr');  
-    this.btnYes.setAttribute('visible', false);
-    this.btnNo.setAttribute('visible', false);
-    gravrModal.setAttribute('visible', false);
+	    break;
+	    case 'setContrast':
+			console.log("set " + btn.id);
 
-    console.log("That was really slow!" + collapsed);
+	    break;
+	    case 'setFuseDelay':
+			if(btn.is('selected')){
+				cursor.setAttribute('cursor','fuseTimeout', fuseDelayData);
+				rotateTimer.setAttribute('animation','dur', fuseDelayData);
+			}else{
+				cursor.setAttribute('cursor','fuseTimeout', 1500);
+				rotateTimer.setAttribute('animation','dur', 1500);
+			}
+		break;
+	    case 'setFov':
+			if(btn.is('selected')){
+				cameraEl.setAttribute('camera','fov', fovData);
+			}else{
+				cameraEl.setAttribute('camera','fov', 80);
+			}
 
-  },
+	    break;
+	    case 'setBlinder':
+			if(btn.is('selected')){
+				blinder.setAttribute('visible', true);
+			}else{
+				blinder.setAttribute('visible', false);
+			}
 
-  clearHideTimer: function () {
-    window.clearTimeout(menuTimer);
-  },
-
-
-  showControls: function (evt) {
-    if (collapsed) {
-
-        evt.target.emit('gravrover');
-        console.log('showControls ' + collapsed);
-        this.btnYes.setAttribute('visible', true);
-        this.btnNo.setAttribute('visible', true);
-        collapsed = false;
-        this.btnYes.emit('fadein');
-        this.btnNo.emit('fadein');
-    
-    }
-
-  },
-  
-  closeGravr: function (evt) {
-
-    if (!collapsed) {
-      this.btnYes.emit('fadeout');
-      this.btnNo.emit('fadeout');
-      
-      this.doHideMenu();
-
-    }else{
-      console.log("btns are hidden")
-    }
+	    break;
+	    case 'setUIBounds':
+			if(btn.is('selected')){
+				bounds.setAttribute('visible', true);
+				moveUI(bounds, cameraEl);
+			}else{
+				bounds.setAttribute('visible', false);
+			}
+	}
+}
 
 
-  },
-  switchProfile: function (evt) {
+function closeMenu() {
 
-    this.btnMain.setAttribute('material', 'src', 'url(i/panel-base-'+evt.target.id+'.jpg)');
-    updateGravr(jsonData, evt.target.id);
+	var panelButtons = document.querySelectorAll('a-entity[mixin="panelButton"]');	
+	for (var e = 0; e < panelButtons.length; e++) {
+		if(panelButtons[e].is('selected')){
+			panelButtons[e].removeState('selected');
+		}
+	}
+	var settingsButtons = document.querySelectorAll('a-entity[class="settingsBtn"]');	
+	for (var e = 0; e < settingsButtons.length; e++) {
+		if(settingsButtons[e].is('selected')){
+			settingsButtons[e].removeState('selected');
+		}
+	}
 
-  },
-  
-  showPanel: function (evt) {
+	document.querySelector('a-entity[id="cancel"]').removeState('selected');
+	document.querySelector('a-entity[gravr-menu]').setAttribute('visible', false);
+	document.querySelector('a-entity[gravr-menu]').setAttribute('scale', "0.00001 0.00001 0.00001");
+	document.querySelector('a-entity[id="usrBounds"]').setAttribute('visible', false);
+    console.log('close it');
+}
 
-    var settingsPanel = document.querySelector('#settingsPanel');
-    var settingsPanelPin = document.querySelector('#settingsPanelPin');
+/**/
 
-    if(this.panelShowing){
-      evt.target.setAttribute('material', 'src', 'url(i/icn_'+evt.target.id+'.jpg)');
-      settingsPanel.emit('fadeout');
-      settingsPanelPin.emit('fadeout');
-      this.panelShowing = true;
-    }else{
-      evt.target.setAttribute('material', 'src', 'url(i/icn_'+evt.target.id+'_on.jpg)');
-      settingsPanel.emit('fadein');
-      settingsPanelPin.emit('fadein');
-      this.panelShowing = false;
-    }
 
-  },
-
-  doGravr: function (evt) {
-
+function applyToSet() {
 
 //set profile data
     var cameraEl = document.querySelector('#gravr-cam');
@@ -292,26 +384,211 @@ AFRAME.registerComponent('gravr', {
     cameraEl.setAttribute('camera','userHeight', heightData);
     cameraEl.setAttribute('camera','fov', fovData);
     
-    document.querySelector('a-curvedimage[id="light"]').setAttribute('visible', false);
-    document.querySelector('a-curvedimage[id="dark"]').setAttribute('visible', false);
+    var keyhole = document.querySelector('#keyhole');
+    if(blinderData == 0){
+	    keyhole.setAttribute('visible', false);
+	}else if(blinderData == 0.75){
+	    keyhole.setAttribute('visible', true);
+	}
 
-    var blinderEl = document.querySelector('a-curvedimage[id="'+blinderColorData+'"]');
-    blinderEl.setAttribute('visible', true);
-    blinderEl.setAttribute('radius', 1-blinderData);
+    var cursor = document.querySelector('#cursor');
+    var rotateTimer = document.querySelector('#rotateTimer');
 
-
+	cursor.setAttribute('cursor','fuseTimeout', fuseDelayData);
+	rotateTimer.setAttribute('animation','dur', fuseDelayData);
 
 //adjust test environment
-
-
-    //see height on height bar
-
   	var myHeight = document.querySelector('a-box[id="heightBar"]');
 
   	myHeight.setAttribute('height',heightData);
   	myHeight.setAttribute('position','0.125 '+heightData/2+' -0.005');
 
-	
-  }
+}
+
+
+function moveUI(boundsEl, cameraEl) {
+
+    var posX =  Math.round(cameraEl.object3D.getWorldPosition().x * 100) / 100;
+    var posZ =  Math.round(cameraEl.object3D.getWorldPosition().z * 100) / 100;
+    var height =  Math.round(cameraEl.object3D.getWorldPosition().y * 100) / 100;
+    var pos = posX + " " + height + " " + posZ;
+
+    console.log("pos: " + pos);
+    boundsEl.setAttribute('position', pos );
+}
+
+
+
+
+
+AFRAME.registerComponent('teleport', {
+
+	schema: {
+		trigger: {
+			default: 'click'
+		},
+		height: {
+		 	default: '1.6'
+		},
+		rotation: {
+		 	default: '0 0 0'
+		}
+	},
+
+	boundClickHandler: undefined,
+	boundMouseEnterHandler: undefined,
+	boundMouseLeaveHandler: undefined,
+
+	init: function() {		
+		this.boundClickHandler = this.clickHandler.bind(this);
+		this.el.addEventListener(this.data.trigger, this.boundClickHandler);
+
+		this.boundMouseEnterHandler = this.mouseEnterHandler.bind(this);
+		this.el.addEventListener('mouseenter', this.boundMouseEnterHandler);
+
+		this.boundMouseLeaveHandler = this.mouseLeaveHandler.bind(this);
+		this.el.addEventListener('mouseleave', this.boundMouseLeaveHandler);
+	},
+    clickHandler: function() { 
+ 
+		document.querySelector('a-entity[gravr-menu]').setAttribute('visible', false);
+		document.querySelector('a-entity[gravr-menu]').setAttribute('scale', "0.00001 0.00001 0.00001");
+
+		var origCam = document.querySelector('#gravr-cam');
+		var camCase1 = document.querySelector('#gravr-cam-case1');
+		var camCase2 = document.querySelector('#gravr-cam-case2');
+		var camCase3 = document.querySelector('#gravr-cam-case3');
+		var uiCase1 = document.querySelector('#ui-case1');
+		var uiCase2 = document.querySelector('#ui-case2');
+		var uiCase3 = document.querySelector('#ui-case3');
+
+		var kitchen = document.querySelector('#kitchen');
+		var bed = document.querySelector('#bed');
+		var sofa = document.querySelector('#sofa');
+
+		var init = document.querySelector('#init');
+
+		uiCase1.setAttribute('visible', false);
+		uiCase2.setAttribute('visible', false);
+		uiCase3.setAttribute('visible', false);
+
+		kitchen.setAttribute('visible', true);
+		bed.setAttribute('visible', true);
+		sofa.setAttribute('visible', true);
+
+		origCam.setAttribute('camera', 'active', true);
+
+		switch(this.el.id) {
+		    
+		    case 'kitchen':
+				camCase1.setAttribute('camera', 'active', true);
+				uiCase1.setAttribute('visible', true);
+				uiCase2.setAttribute('visible', false);
+				uiCase3.setAttribute('visible', false);
+
+				kitchen.setAttribute('visible', false);
+				bed.setAttribute('visible', true);
+				sofa.setAttribute('visible', true);
+				init.setAttribute('visible', true);
+
+		      break;
+		    case 'bed':
+				camCase2.setAttribute('camera', 'active', true);
+				uiCase1.setAttribute('visible', false);
+				uiCase2.setAttribute('visible', true);
+				uiCase3.setAttribute('visible', false);
+
+				kitchen.setAttribute('visible', true);
+				bed.setAttribute('visible', false);
+				sofa.setAttribute('visible', true);
+				init.setAttribute('visible', true);
+
+		      break;
+		    case 'sofa':
+				camCase3.setAttribute('camera', 'active', true);
+				uiCase1.setAttribute('visible', false);
+				uiCase2.setAttribute('visible', false);
+				uiCase3.setAttribute('visible', true);
+
+				kitchen.setAttribute('visible', true);
+				bed.setAttribute('visible', true);
+				sofa.setAttribute('visible', false);
+				init.setAttribute('visible', true);
+
+		      break;
+		    case 'init':
+				origCam.setAttribute('camera', 'active', true);
+				uiCase1.setAttribute('visible', false);
+				uiCase2.setAttribute('visible', false);
+				uiCase3.setAttribute('visible', false);
+
+				kitchen.setAttribute('visible', true);
+				bed.setAttribute('visible', true);
+				sofa.setAttribute('visible', true);
+				init.setAttribute('visible', false);
+
+		}
+
+
+    },
+    mouseEnterHandler: function() { 
+    	this.el.setAttribute('material', 'opacity', '0.75');
+    	this.el.addState('hovering');
+    },
+    mouseLeaveHandler: function() { 
+    	this.el.setAttribute('material', 'opacity', '0.25');
+    	this.el.removeState('hovering');
+    },
+	remove: function() {
+		this.el.removeEventListener('click', this.boundClickHandler);
+		this.el.removeEventListener('mouseEnter', this.boundMouseEnterHandler);
+		this.el.removeEventListener('mouseLeave', this.boundMouseLeaveHandler);
+    	this.el.removeState('hovering');
+    	this.el.removeState('selected');
+	}
 
 });
+
+
+
+
+/**
+ * gravrcomponent for A-Frame.
+*/ 
+
+AFRAME.registerComponent('gravr', {
+
+  	schema: {
+  		
+  		default: ''
+     
+  	},
+
+	init: function() {		
+	},
+
+	update: function() {
+
+	},
+
+	moveUI: function(newPosition) {
+    	var pos = newPosition.x +" 0 "+ newPosition.z;
+	    document.querySelector('#usrBounds').setAttribute('position', pos );
+	}
+
+
+});
+/*
+
+var scene = document.querySelector('a-scene');
+if (scene.hasLoaded) {
+  run();
+} else {
+  scene.addEventListener('loaded', run);
+}
+function run () {
+  var entity = scene.querySelector('a-entity');
+  entity.setAttribute('material', 'color', 'red');
+}
+
+*/
