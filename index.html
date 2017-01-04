@@ -535,8 +535,12 @@ if (scene.hasLoaded) {
 function run () {
   scene.addEventListener('enter-vr', function () {
     console.log("ENTERED VR");
+    scene.renderer.setPixelRatio(2);
     document.getElementById("click").style.display = "none";
   });
+
+        
+
 }
 
 scene.addEventListener('camera-set-active', function(evt) {
