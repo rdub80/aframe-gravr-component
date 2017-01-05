@@ -13,10 +13,7 @@ A server request with give your app a JSON file that lists your user data and VR
 
 ---
 
-### Preview Demo
-
-
-[Demo](http://rolanddubois.com/webvr/gravr-component/)
+## [Preview Demo](http://rolanddubois.com/webvr/gravr-component/)
 
 
 ##Considerations:
