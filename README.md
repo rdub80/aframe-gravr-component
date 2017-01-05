@@ -13,6 +13,11 @@ A server request with give your app a JSON file that lists your user data and VR
 
 ---
 
+### Preview Demo
+
+
+[Demo](http://rolanddubois.com/webvr/gravr-component/)
+
 
 ##Considerations:
 Avatars in VR shouldn't only be a gymmicky mesh reconstruction of ourselves, like [Oculus avatars](http://www.theverge.com/2016/10/6/13177082/oculus-rift-avatars-vr-virtual-reality/in/12953919). A VR avatar should be seen as a physical representation of ourselves with our comfort and usability in mind and based on a reflection of our real life environment.
@@ -62,12 +67,6 @@ _bounds_ will provide the WebVR developers important feedback on a comfortable r
 
 With _fuseDelay_, the user can define how fast and slow gaze triggered clicks get executed.
 
-
-
-### Preview Demo
-
-
-[Demo](http://rolanddubois.com/webvr/gravr-component/)
 
 
 ### Dependencies
