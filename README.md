@@ -17,15 +17,18 @@ A server request with give your app a JSON file that lists your user data and VR
 
 ---
 
-1. Show/hide __gravr__ menu by _tapping_ the side of your headset, opening _info panel_ and _settings panel_
+Show/hide __gravr__ menu by _tapping_ the side of your headset, opening _info panel_ and _settings panel_
+
 ![gravr1](https://cloud.githubusercontent.com/assets/347570/21702845/fd8c9710-d37b-11e6-8a53-62235d3e6f88.gif)
 
 
-1. Selecting _GUI bounds grid_ on _settings panel_, and closing __gravr__ menu, teleporting to kitchen table \(sitting position\)
+Selecting _GUI bounds grid_ on _settings panel_, and closing __gravr__ menu, teleporting to kitchen table \(sitting position\)
+
 ![gravr2](https://cloud.githubusercontent.com/assets/347570/21702844/fd8b08c8-d37b-11e6-9260-3a5dd3a3b72a.gif)
 
 
-3. Teleporting to bed \(laying position\), teleporting to couch \(lounging position\) and returning to initial position
+Teleporting to bed \(laying position\), teleporting to couch \(lounging position\) and returning to initial position
+
 ![gravr3](https://cloud.githubusercontent.com/assets/347570/21702843/fd8a860a-d37b-11e6-9231-8dc12da3bfdf.gif)
 
 
