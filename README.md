@@ -5,7 +5,7 @@ A profile menu for the [A-Frame](https://aframe.io) component of [gravr.io](http
 A Globally Recognized Avatar for VR on the web
 
 
-Like Automattics [Gravatar API](https://www.gravatar.com), gravr.io (under construction) will give you the possibility to register via email and create a VR profile with multiple presets of virtual enviroment setups to quickly adjust your VR environment to your (real) local environment.
+[Gravr.io](http://www.gravr.io) will give you the possibility to register via email and create a VR profile with multiple presets of virtual enviroment setups to quickly adjust your VR environment to your (real) local environment.
 
 
 A server request with give your app a JSON file that lists your user data and VR presets, so you can easily adjust your VR setup if you are squeezed into a seat on an airplane or lounging on your couch.
