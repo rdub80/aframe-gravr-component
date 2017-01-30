@@ -6,7 +6,7 @@ A Globally Recognized Avatar for VR on the web
 
 ---
 
-[![gravrCaseStudies](https://cloud.githubusercontent.com/assets/347570/22426432/3763251c-e6cd-11e6-92eb-5ccf2c5ece7e.png)](https://www.slideshare.net/secret/EexMAxmkMJNm1w)
+[![gravrCaseStudies](https://cloud.githubusercontent.com/assets/347570/22426946/4cfb0276-e6cf-11e6-8375-739a2efbe2ab.png)](https://www.slideshare.net/secret/EexMAxmkMJNm1w)
 
 ---
 
