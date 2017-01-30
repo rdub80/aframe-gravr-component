@@ -4,6 +4,11 @@ A profile menu for the [A-Frame](https://aframe.io) component of [gravr.io](http
 # gravr
 A Globally Recognized Avatar for VR on the web
 
+---
+
+[![gravrCaseStudies](https://cloud.githubusercontent.com/assets/347570/22426432/3763251c-e6cd-11e6-92eb-5ccf2c5ece7e.png)](https://www.slideshare.net/secret/EexMAxmkMJNm1w)
+
+---
 
 [Gravr.io](http://www.gravr.io) will give you the possibility to register via email and create a VR profile with multiple presets of virtual enviroment setups to quickly adjust your VR environment to your (real) local environment.
 
